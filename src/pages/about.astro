@@ -1,63 +1,156 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { HomeHeader } from '../components/HomeHeader';
+import TailwindIndicator from '../components/TailwindIndicator.astro';
+import DarkMode from '../layouts/DarkMode.astro';
+import '@fontsource/sora';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	updatedDate={new Date('August 08 2022')}
-	heroImage="/placeholder-about.jpg"
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!-- Trying data attributes to do this animation -->
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+<!DOCTYPE html>
+<html lang="en" class="h-full max-w-7xl mx-auto">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<!-- bg-gradient-to-b from-slate-200 to-slate-300 dark:from-stone-500 dark:to-stone-600 -->
+	<body class="h-full bg-stone-300 dark:bg-stone-800  transition-all ease-in-out duration-300">
+		<HomeHeader client:only />
+		<main class="relative h-[calc(100%-9rem)] w-full grid items-center justify-center" style={{ perspective: "2000px" }}>
+			<!-- w-[calc(100%-4rem)] -->
+			<section style={{
+				transition: "transform 0.1s ease-out",
+				transform: `rotateX(var(--x)) rotateY(var(--y))`,
+				perspective: "150px",
+			}} class="absolute group mx-auto bg-stone-700 dark:bg-stone-400 rounded-3xl space-y-2 mt-4 overflow-hidden" date-state="card">
+				<!-- <img src="/me.jpg" alt="My face" class="mx-auto rounded-full" /> -->
+				<div 
+					style={{
+						transition: "transform, opacity 0.2s ease-out",
+						transform: `translateX(var(--hX)) translateY(var(--hY))`,
+					}} 
+					id="card-reflection"
+					class="h-96 w-96 bg-stone-700/20 blur-3xl group-hover:opacity-100 transition-opacity opacity-0 pointer-events-none rounded-full top-0 left-0 absolute"
+				/>
+				<button 
+					style={{
+						transition: "transform 1s ease-out",
+						transform: `rotateX(var(--x)) rotateY(var(--y))`,
+					}} 
+					class="relative w-full h-full flex flex-col space-y-8 items-center justify-center"
+				>
+					<svg width="100" height="100" class="text-stone-300 dark:text-stone-700 pointer-events-none group-hover:scale-110 transition-transform duration-300" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M1 2C0.447715 2 0 2.44772 0 3V12C0 12.5523 0.447715 13 1 13H14C14.5523 13 15 12.5523 15 12V3C15 2.44772 14.5523 2 14 2H1ZM1 3L14 3V3.92494C13.9174 3.92486 13.8338 3.94751 13.7589 3.99505L7.5 7.96703L1.24112 3.99505C1.16621 3.94751 1.0826 3.92486 1 3.92494V3ZM1 4.90797V12H14V4.90797L7.74112 8.87995C7.59394 8.97335 7.40606 8.97335 7.25888 8.87995L1 4.90797Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" />
+					</svg>
+					<p class="text-stone-300 dark:text-stone-700 pointer-events-none">Open</p>
+				</button>
+			</section>
+		</main>
+		<!-- <Footer /> -->
+		<TailwindIndicator />
+		<DarkMode />
+	</body>
+</html>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+<script>
+	// This is all so gross, need to clean it up... Will defo not remember what is going on here lol
+	const button = document.querySelector('button');
+	const section = document.querySelector('section');
+	const cardReflection = document.querySelector('#card-reflection') as HTMLElement
+	if (button) {
+		button.addEventListener('click', () => {
+			if (!section) return
+			cardReflection.style.removeProperty('transition');
+			cardReflection.style.setProperty('opacity', '0');
+			cardReflection.style.setProperty('pointer-events', 'none');
+			// --x and --y to 0
+			section.style.setProperty('--x', '0deg');
+			section.style.setProperty('--y', '0deg')
+			section.style.setProperty('transition', 'all 1s ease-out');
+			section.style.setProperty('pointer-events', 'none');
+			section.setAttribute('date-state', 'expanded-card');
+		});
+	}
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+	// on hover
+	if (section && cardReflection) {
+		section.addEventListener('mouseenter', () => {
+			section.addEventListener('mousemove', (e) => {
+			const { width, height } = section.getBoundingClientRect();
+			const x = e.offsetX
+			const y = e.offsetY
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+			const halfWidth = width / 2;
+			const halfHeight = height / 2;
+
+			const rY = ((x - halfWidth) / halfWidth) * 10;
+			const rX = ((y - halfHeight) / halfHeight) * 10;
+
+			// const hX
+			// const hX = x - halfWidth
+			// const hY = y - halfHeight
+
+			const { width: cW, height: cH  } = cardReflection.getBoundingClientRect();
+
+			section.style.setProperty("--x", `${rX}deg`);
+			section.style.setProperty("--y", `${rY}deg`);
+			section.style.setProperty("--hX", `${width - x - cW/2}px`);
+			section.style.setProperty("--hY", `${height - y - cH/2}px`);
+		});
+		})
+		// On mouse leave set x and y to 0
+		section.addEventListener('mouseleave', () => {
+			section.style.setProperty("--x", `0deg`);
+			section.style.setProperty("--y", `0deg`);
+			section.removeEventListener('mousemove', () => {});
+			// section.style.setProperty("--hX", `0px`);
+			// section.style.setProperty("--hY", `0px`);
+		});
+	}
+</script>
+
+<style>
+	:root {
+		--shadow-color: 0deg 0% 50%;
+		--shadow-elevation-low:
+			0px 0.4px 0.6px hsl(var(--shadow-color) / 0),
+			0px 0.8px 1.2px hsl(var(--shadow-color) / 0.19),
+			0px 1.6px 2.4px hsl(var(--shadow-color) / 0.39);
+		--shadow-elevation-medium:
+			0px 0.4px 0.6px hsl(var(--shadow-color) / 0),
+			0px 1.9px 2.8px hsl(var(--shadow-color) / 0.15),
+			0px 3.8px 5.7px hsl(var(--shadow-color) / 0.31),
+			0px 7.8px 11.7px hsl(var(--shadow-color) / 0.46);
+		--shadow-elevation-high:
+			0px 0.4px 0.6px hsl(var(--shadow-color) / 0),
+			0px 3.8px 5.7px hsl(var(--shadow-color) / 0.07),
+			0px 6.7px 10.1px hsl(var(--shadow-color) / 0.14),
+			0px 9.7px 14.6px hsl(var(--shadow-color) / 0.21),
+			0px 13.5px 20.3px hsl(var(--shadow-color) / 0.28),
+			0px 18.8px 28.2px hsl(var(--shadow-color) / 0.35),
+			0px 26px 39px hsl(var(--shadow-color) / 0.43),
+			0px 35.9px 53.9px hsl(var(--shadow-color) / 0.5);
+	}
+	section {
+		top: calc(50% - 15rem);
+		left: calc(50% - 10rem);
+		right: calc(50% - 10rem);
+		bottom: calc(50% - 15rem);
+		/* width: 20rem;
+		height: 30rem; */
+		transition: transform 1s ease-in-out;
+		box-shadow: var(--shadow-elevation-high);
+	}
+	section[date-state="expanded-card"] {
+		transform: translate(1rem, 1rem);
+		top: 2rem;
+		left: 2rem;
+		right: 2rem;
+		bottom: 2rem;
+		/* width: calc(100% - 4rem);
+		height: calc(100% - 4rem); */
+		transform: none;
+	}
+</style>

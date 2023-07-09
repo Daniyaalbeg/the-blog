@@ -1,50 +1,30 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { HomeHeader } from '../components/HomeHeader';
+import TailwindIndicator from '../components/TailwindIndicator.astro';
+import DarkMode from '../layouts/DarkMode.astro';
+import '@fontsource/sora';
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full max-w-7xl mx-auto">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body>
-		<Header title={SITE_TITLE} />
+	<!-- bg-gradient-to-b from-slate-200 to-slate-300 dark:from-stone-500 dark:to-stone-600 -->
+	<body class="h-full bg-stone-300 dark:bg-stone-800  transition-all ease-in-out duration-300">
+		<HomeHeader client:only />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/pages/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="w-[calc(100%-4rem)] mx-auto bg-stone-700 dark:bg-stone-400 rounded-lg xl:rounded-2xl p-12 space-y-2 mt-12">
+				<h2 class="font-semibold text-2xl leading-tight dark:text-stone-700 text-stone-300">Welcome to my space on the internet!</h2>
+				<h3 class="dark:text-stone-700 text-stone-300">I made this site to showcase my projects and gibber about things I want.</h3>
+				<p class="dark:text-stone-700 text-stone-300">I Hope you find some fun here!</p>
+			</section>
 		</main>
-		<Footer />
+		<!-- <Footer /> -->
+		<TailwindIndicator />
+		<DarkMode />
 	</body>
 </html>
