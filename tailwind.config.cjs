@@ -8,7 +8,9 @@ module.exports = {
 		fontFamily: {
 			sans: ['Sora', ...defaultTheme.fontFamily.sans],
 		},
-		extend: {},
+		backgroundImage: {
+			paper: "url('/paper.jpg')",
+		},
 	},
 	plugins: [],
 }
