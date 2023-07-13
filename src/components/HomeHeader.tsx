@@ -38,14 +38,19 @@ export const HomeHeader = () => {
 
 	return (
 		<header className="flex flex-row justify-between items-center py-4 px-8">
-			<h2 className="group hidden sm:block text-stone-700 dark:text-stone-300 font-semibold cursor-default">
+			<div className="group flex gap-1 dark:text-slate-300 text-slate-700 justify-center items-center">
+				<h2 className="group-hover:text-[hsl(240,50%,50%)] group-hover:dark:text-[hsl(240,50%,60%)] text-xl transition-colors duration-200 ease-in-out pointer-events-none">
+					{SITE_TITLE.slice(0, 1)}
+				</h2>
+				<h2 className="group-hover:skew-x-12 transition-transform duration-200 ease-in-out pointer-events-none">
+					{SITE_TITLE.slice(1, SITE_TITLE.length)}
+				</h2>
+			</div>
+			<h2 className="sm:hidden text-xs text-stone-700 dark:text-stone-300 font-semibold">
 				<span className="group-hover:text-[hsl(240,50%,60%)] text-xl transition-colors duration-200 ease-in-out">
 					{SITE_TITLE.slice(0, 1)}
 				</span>
 				{SITE_TITLE.slice(1, SITE_TITLE.length)}
-			</h2>
-			<h2 className="sm:hidden text-xs text-stone-700 dark:text-stone-300 font-semibold">
-				{SITE_TITLE}
 			</h2>
 			<nav className="space-x-8 group" ref={navContainerRef} style={styles}>
 				<motion.div className="w-[var(--w)] h-8 left-[var(--x)] top-[var(--y)] pointer-events-none absolute bg-stone-600/10 dark:bg-stone-300/10 rounded-lg transition-all duration-500 group-hover:opacity-100 opacity-0" />
