@@ -38,8 +38,11 @@ export const HomeHeader = () => {
 
 	return (
 		<header className="flex flex-row justify-between items-center py-4 px-8">
-			<h2 className="hidden sm:block text-stone-700 dark:text-stone-300 font-semibold">
-				{SITE_TITLE}
+			<h2 className="group hidden sm:block text-stone-700 dark:text-stone-300 font-semibold cursor-default">
+				<span className="group-hover:text-[hsl(240,50%,60%)] text-xl transition-colors duration-200 ease-in-out">
+					{SITE_TITLE.slice(0, 1)}
+				</span>
+				{SITE_TITLE.slice(1, SITE_TITLE.length)}
 			</h2>
 			<h2 className="sm:hidden text-xs text-stone-700 dark:text-stone-300 font-semibold">
 				{SITE_TITLE}
