@@ -38,7 +38,10 @@ export const HomeHeader = () => {
 
 	return (
 		<header className="flex flex-row justify-between items-center py-4 px-8">
-			<h2 className="text-stone-700 dark:text-stone-300 font-semibold">
+			<h2 className="hidden sm:block text-stone-700 dark:text-stone-300 font-semibold">
+				{SITE_TITLE}
+			</h2>
+			<h2 className="sm:hidden text-xs text-stone-700 dark:text-stone-300 font-semibold">
 				{SITE_TITLE}
 			</h2>
 			<nav className="space-x-8 group" ref={navContainerRef} style={styles}>

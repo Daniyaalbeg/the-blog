@@ -1,0 +1,68 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { HomeHeader } from '../components/HomeHeader';
+import TailwindIndicator from '../components/TailwindIndicator.astro';
+import DarkMode from '../layouts/DarkMode.astro';
+import '@fontsource/sora';
+
+const projects = [
+	{
+		name: "Project 1",
+		description: "This is a project",
+	},
+	{
+		name: "Project 2",
+		description: "This is a project",
+	},
+	{
+		name: "Project 3",
+		description: "This is a project",
+	}
+]
+---
+
+<!DOCTYPE html>
+<html lang="en" class="h-full max-w-7xl mx-auto">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<!-- bg-gradient-to-b from-slate-200 to-slate-300 dark:from-stone-500 dark:to-stone-600 -->
+	<body class="h-full bg-stone-300 dark:bg-stone-800  transition-all ease-in-out duration-300">
+		<div class="w-full h-20">
+			<HomeHeader client:only />
+		</div>
+		<main class="grid items-center justify-center w-full max-w-md mx-auto h-full">
+			<div class="p-0 m-0 flex flex-wrap gap-2">
+				{
+					projects.map((p) => {
+						return (
+							<div id="card" class="group bg-[rgba(0,0,0,0.2)] w-40 rounded-xl aspect-square relative after:bg-[radial-gradient(200px_circle_at_var(--x)_var(--y),rgba(29,78,216,1),transparent_100%)] after:opacity-0 after:hover:opacity-100 after:transition-opacity after:duration-500 after:ease-in-out after:w-full after:h-full after:top-0 after:left-0 after:z-[1] before:z-[3] before:inset-[1px] after:absolute after:pointer-events-none before:absolute before:pointer-events-none before:rounded-xl before:bg-[radial-gradient(400px_circle_at_var(--x)_var(--y),rgba(100,100,255,0.1),transparent_40%)] overflow-hidden hover:before:opacity-100 before:opacity-0 before:transition-opacity before:duration-500 before:ease-in-out">
+								<div class="bg-[#121e43] inset-[1px] absolute flex flex-col z-[2] justify-center items-center rounded-[0.7rem]">
+									<h1 class="pointer-events-none text-stone-50">{p.name}</h1>
+									<p class="pointer-events-none text-stone-50">{p.description}</p>
+								</div>
+							</div>
+						)
+					})
+				}
+			</div>
+		</main>
+		<TailwindIndicator />
+		<DarkMode />
+	</body>
+</html>
+
+<script>
+	// Get all cards and event mouse move listener
+	const cards = document.querySelectorAll('#card')
+	cards.forEach((card) => {
+		const castedCard = card as HTMLElement
+		const updateCursor = (e: MouseEvent) => {
+			// Update --x and --y to the mouse position
+			castedCard.style.setProperty('--x', `${e.offsetX}px`)
+			castedCard.style.setProperty('--y', `${e.offsetY}px`)
+		}
+		castedCard.addEventListener('mousemove', updateCursor)
+	})
+</script>

@@ -9,6 +9,11 @@ interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 
 export const HeaderLink = ({ href, children, updateHoverElement }: Props) => {
 	const ref = useRef<HTMLAnchorElement>(null)
+
+	if (typeof window === 'undefined') {
+		return null
+	}
+
 	const pathname = window.location.pathname
 	const isActive = href === pathname || href === pathname.replace(/\/$/, '')
 

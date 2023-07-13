@@ -5,11 +5,14 @@ module.exports = {
 	darkMode: ['class'],
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
-		fontFamily: {
-			sans: ['Sora', ...defaultTheme.fontFamily.sans],
-		},
-		backgroundImage: {
-			paper: "url('/paper.jpg')",
+		extend: {
+			fontFamily: {
+				sans: ['Sora', ...defaultTheme.fontFamily.sans],
+				biro: 'Biro Script Reduced',
+			},
+			backgroundImage: {
+				paper: "url('/paper.jpg')",
+			},
 		},
 	},
 	plugins: [],
