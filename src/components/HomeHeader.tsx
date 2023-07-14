@@ -37,8 +37,8 @@ export const HomeHeader = () => {
 	}, [])
 
 	return (
-		<header className="flex flex-row justify-between items-center py-4 px-8">
-			<div className="group flex gap-1 dark:text-slate-300 text-slate-700 justify-center items-center">
+		<header className="flex flex-row justify-between items-center py-4">
+			<div className="hidden group sm:flex flex-row gap-1 dark:text-slate-300 text-slate-700 justify-center items-center">
 				<h2 className="group-hover:text-[hsl(240,50%,50%)] group-hover:dark:text-[hsl(240,50%,60%)] text-xl transition-colors duration-200 ease-in-out pointer-events-none">
 					{SITE_TITLE.slice(0, 1)}
 				</h2>
