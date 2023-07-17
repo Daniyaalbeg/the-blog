@@ -1,0 +1,168 @@
+---
+
+---
+<canvas class="webgl h-[600px] bg-slate-100 dark:bg-slate-900 w-full mx-auto rounded-3xl dark:shadow-xl dark:shadow-purple-800/50"></canvas>
+
+<script>
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import * as dat from 'lil-gui'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+// import waterVertexShader from './shaders/vertex.glsl'
+// import waterFragmentShader from './shaders/fragment.glsl'
+
+THREE.ColorManagement.enabled = false
+
+/**
+ * Base
+ */
+// Debug
+// const gui = new dat.GUI({ width: 340 })
+
+// Canvas
+const canvas = document.querySelector('canvas.webgl')
+// const html = document.querySelector('html')
+
+// const isDark = html?.classList.contains('dark')
+
+// Scene
+const scene = new THREE.Scene()
+
+// change background color
+scene.background = new THREE.Color('#0F172A')
+// scene.background = new THREE.Color(isDark ? '#0F172A' : '#F1F5F9')
+
+// Add an event listener to the html element if the dark class is added or removed
+// html?.addEventListener()
+
+// const observer = new MutationObserver(function(mutations) {
+//     mutations.forEach(function(mutationRecord) {
+//         console.log('style changed!');
+//     });    
+// });
+
+// const target = document.getElementById('html');
+// if (target) {
+// 	observer.observe(target, { attributes : true, attributeFilter : ['style'] });
+// }
+
+const loader = new GLTFLoader();
+
+loader.load( '/models/charachter.gltf', function ( gltf ) {
+
+	scene.add( gltf.scene );
+
+}, undefined, function ( error ) {
+
+	console.error( error );
+
+} );
+
+// :ights
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.8)
+scene.add(ambientLight)
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6)
+directionalLight.castShadow = true
+directionalLight.shadow.mapSize.set(1024, 1024)
+directionalLight.shadow.camera.far = 15
+directionalLight.shadow.camera.left = - 7
+directionalLight.shadow.camera.top = 7
+directionalLight.shadow.camera.right = 7
+directionalLight.shadow.camera.bottom = - 7
+directionalLight.position.set(5, 5, 5)
+scene.add(directionalLight)
+
+/**
+ * Water
+ */
+// Geometry
+const plane = new THREE.PlaneGeometry(50, 50, 10, 10)
+
+// Material
+const material = new THREE.MeshBasicMaterial({
+	color: '#ff2fff',
+})
+
+// Mesh
+const water = new THREE.Mesh(plane, material)
+water.rotation.x = -Math.PI * 0.5
+// scene.add(water)
+
+/**
+ * Sizes
+ */
+const sizes = {
+	width: window.innerWidth - 80,
+	height: 600,
+}
+
+window.addEventListener('resize', () => {
+	// Update sizes
+	sizes.width = window.innerWidth - 80
+	sizes.height = 600
+
+	// Update camera
+	camera.aspect = sizes.width / sizes.height
+	camera.updateProjectionMatrix()
+
+	// Update renderer
+	renderer.setSize(sizes.width, sizes.height)
+	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
+
+/**
+ * Camera
+ */
+// Base camera
+const camera = new THREE.PerspectiveCamera(
+	75,
+	sizes.width / sizes.height,
+	0.1,
+	200
+)
+camera.position.set(10, 15, 20)
+scene.add(camera)
+
+// Controls
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
+/**
+ * Renderer
+ */
+const renderer = new THREE.WebGLRenderer({
+	canvas: canvas,
+})
+renderer.setSize(sizes.width, sizes.height)
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+/**
+ * Animate
+ */
+const clock = new THREE.Clock()
+let previousTime = 0
+
+const tick = () => {
+	const elapsedTime = clock.getElapsedTime()
+	const delta = elapsedTime - previousTime
+	previousTime = elapsedTime
+
+	
+
+	// Update controls
+	controls.update()
+
+	camera.position.x = Math.sin(controls.getAzimuthalAngle() + delta) * 10
+	camera.position.z = Math.cos(controls.getAzimuthalAngle() + delta) * 10
+	camera.lookAt(new THREE.Vector3(water.position.x, water.position.y + 10, water.position.z))
+
+	// Render
+	renderer.render(scene, camera)
+
+	// Call tick again on the next frame
+	window.requestAnimationFrame(tick)
+}
+
+tick()
+
+</script>

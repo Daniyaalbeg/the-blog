@@ -1,17 +1,38 @@
 ---
-const { url, name, description, tools } = Astro.props;
+import type { Color, Project } from "../pages/index.astro";
+const { project } = Astro.props as Record<string, Project>;
 
+const colorVariantsCard: Record<Color, string> = {
+	'purple': 'from-[hsl(235,58%,60%)] to-[hsl(235,58%,45%)] dark:from-[hsl(225,58%,17%)] dark:to-[hsl(225,60%,30%)]',
+	'red': 'from-[hsl(1,58%,60%)] to-[hsl(1,58%,45%)] dark:from-[hsl(1,58%,17%)] dark:to-[hsl(1,60%,30%)]',
+	'green': 'from-[hsl(130,58%,50%)] to-[hsl(130,58%,35%)] dark:from-[hsl(120,58%,17%)] dark:to-[hsl(120,60%,30%)]'
+}
+
+const colorVariantsBorder: Record<Color, string> = {
+	'purple': 'after:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(260,100%,50%),transparent_20%)] after:dark:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(240,50%,60%),transparent_100%)]',
+	'green': 'after:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(130,100%,50%),transparent_20%)] after:dark:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(130,50%,60%),transparent_100%)]',
+	'red': 'after:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(1,100%,50%),transparent_20%)] after:dark:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(1,50%,60%),transparent_100%)]'
+}
+
+const colorVariantsSpot: Record<Color, string> = {
+	'purple': 'before:bg-[radial-gradient(1000px_circle_at_var(--x)_var(--y),hsl(240,100%,80%,0.3),transparent_40%)] before:dark:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(240,100%,70%,0.15),transparent_40%)]',
+	'green': 'before:bg-[radial-gradient(1000px_circle_at_var(--x)_var(--y),hsl(130,100%,80%,0.3),transparent_40%)] before:dark:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(130,100%,70%,0.15),transparent_40%)]',
+	'red': 'before:bg-[radial-gradient(1000px_circle_at_var(--x)_var(--y),hsl(1,100%,80%,0.3),transparent_40%)] before:dark:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(1,100%,70%,0.15),transparent_40%)]'
+}
+
+const selectedColor = colorVariantsCard[project.color]
 ---
-<a href={url} rel="norefferer" target="_blank" class="group block">
-	<div id="card" class="bg-[rgba(0,0,0,0.2)] rounded-xl h-52 relative after:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(240,50%,60%),transparent_100%)] after:dark:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),hsl(240,50%,60%),transparent_100%)] after:opacity-20 after:hover:opacity-100 after:transition-opacity after:duration-500 after:ease-in-out after:w-full after:h-full after:top-0 after:left-0 after:z-[1] before:z-[3] before:inset-[1px] after:absolute after:pointer-events-none before:absolute before:pointer-events-none before:rounded-xl before:bg-[radial-gradient(1000px_circle_at_var(--x)_var(--y),rgba(100,100,255,0.1),transparent_40%)] before:dark:bg-[radial-gradient(800px_circle_at_var(--x)_var(--y),rgba(100,100,255,0.1),transparent_40%)] overflow-hidden hover:before:opacity-100 before:opacity-0 before:transition-opacity before:duration-500 before:ease-in-out">
-		<div class="bg-gradient-to-b from-slate-200 to-slate-100 dark:from-[#121e43] dark:to-[#162658] inset-[1px] absolute gap-2 flex flex-col z-[2] justify-center items-start p-8 rounded-[0.7rem] pointer-events-none">
-			<h2 class="text-slate-700 dark:text-slate-300 text-lg">{name}</h2>
-			<h3 class="text-slate-500 dark:text-slate-400">{description}</h3>
+
+<a href={project.url} rel="norefferer" target="_blank" class="group block">
+	<div id="card" class={`bg-[rgba(0,0,0,0.2)] rounded-xl h-52 relative ${colorVariantsSpot[project.color]} after:opacity-20 after:hover:opacity-100 after:transition-opacity after:duration-500 after:ease-in-out after:w-full after:h-full after:top-0 after:left-0 after:z-[1] before:z-[3] before:inset-[1px] after:absolute after:pointer-events-none before:absolute before:pointer-events-none before:rounded-xl ${colorVariantsBorder[project.color]} overflow-hidden hover:before:opacity-100 before:opacity-0 before:transition-opacity before:duration-500 before:ease-in-out`}>
+		<div class={`bg-gradient-to-b ${selectedColor} inset-[1px] absolute gap-2 flex flex-col z-[2] justify-center items-start p-8 rounded-[0.7rem] pointer-events-none`}>
+			<h2 class="text-slate-100 dark:text-slate-300 text-lg">{project.name}</h2>
+			<h3 class="text-slate-200 dark:text-slate-400">{project.description}</h3>
 			<div class="flex gap-2 items-center justify-start">
-				<svg class="text-slate-400 dark:text-slate-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hammer">
+				<svg class="text-slate-300 dark:text-slate-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hammer">
 					<path d="m15 12-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/>
 				</svg>
-				<p class="text-slate-500 text-xs sm:text-sm">{tools}</p>
+				<p class="text-slate-300 text-xs sm:text-sm">{project.tools}</p>
 			</div>
 		</div>
 	</div>

@@ -8,19 +8,39 @@ import DarkMode from '../layouts/DarkMode.astro';
 import '@fontsource/sora';
 import Card from '../components/Card.astro';
 import { getCollection } from 'astro:content';
+import ThreeHero from '../components/ThreeHero.astro';
 
-const projects = [
+export type Color = 'purple' | 'red' | 'green'
+
+export type Project = {
+	name: string,
+	url: string,
+	description: string,
+	tools: string,
+	color: Color
+}
+
+const projects: Project[] = [
 	{
 		name: "Prompt Builder",
 		url: "https://github.com/Daniyaalbeg/prompt-builder",
 		description: "An open source tool that allows you to manage and generate prompts for image generation.",
-		tools: "NextJS, Tailwind, Drizzle, Lucia, Shadcn, Planetscale"
+		tools: "NextJS, Tailwind, Drizzle, Lucia, Shadcn, Planetscale",
+		color: 'purple'
 	},
 	{
 		name: "Ministry of Change",
 		url: "https://ministryofchange.org",
-		description: "A website for a non-profit organization that I made for my school's community service club.",
-		tools: "React, Express, MongoDB, TailwindCSS, Node"
+		description: "A web portal for a non-profit organization. React front-end with an express backend.",
+		tools: "React, Express, MongoDB, TailwindCSS, Node",
+		color: 'green'
+	},
+	{
+		name: "Dwordle",
+		url: "https://github.com/Daniyaalbeg/dwordle",
+		description: "A wordle clone for the cli.",
+		tools: "Node, Figlet, Chalk",
+		color: 'red'
 	}
 ]
 
@@ -29,28 +49,29 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 <!DOCTYPE html>
-<html lang="en" class="h-full max-w-7xl mx-auto">
+<html lang="en" class="h-full max-w-7xl mx-auto" id="html">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<!-- bg-gradient-to-b from-slate-200 to-slate-300 dark:from-stone-500 dark:to-stone-600 -->
 	<body class="h-full bg-slate-100 dark:bg-slate-900 overflow-y-scroll overflow-x-hidden">
 		<div class="w-full px-8 sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20">
-			<HomeHeader client:load />
+			<HomeHeader client:only />
 		</div>
-		<main class="w-full">
-			<section class="w-[calc(100%-4rem)] sm:w-[calc(100%-10rem)] mb-8 p-8 sm:p-12 mx-auto bg-gradient-to-br from-slate-300 to-slate-100 shadow-2xl hover:shadow-[hsl(240,50%,60%)] hover:dark:shadow-[hsl(240,60%,30%)] transition-shadow duration-500 ease-in-out dark:to-blue-600/40 dark:from-blue-950 rounded-lg xl:rounded-2xl space-y-2 mt-12">
+		<main class="w-full space-y-16 pt-12">
+			<!-- <section class="w-[calc(100%-4rem)] sm:w-[calc(100%-10rem)] mb-8 p-8 sm:p-12 mx-auto bg-gradient-to-br from-slate-300 to-slate-100 shadow-2xl hover:shadow-[hsl(240,50%,60%)] hover:dark:shadow-[hsl(240,60%,30%)] transition-shadow duration-500 ease-in-out dark:to-blue-600/40 dark:from-blue-950 rounded-lg xl:rounded-2xl space-y-2 mt-12">
 				<h2 class="font-semibold text-xl sm:text-2xl leading-tight dark:text-slate-300 text-slate-700">Welcome to my space on the internet!</h2>
 				<h3 class="dark:text-slate-300 text-slate-600">I made this site to showcase my projects and gibber about things I want.</h3>
 				<p class="dark:text-slate-300 text-slate-600">I Hope you find some fun here!</p>
-			</section>
+			</section> -->
+			<ThreeHero client:load />
 			<section class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12">
 				<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0">Projects</h2>
 				<h3 class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">A list of my complete and incomplete projects.</h3>
 				<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-8">
 					{
 						projects.map((p) => {
-							return <Card name={p.name} url={p.url} description={p.description} tools={p.tools} />
+							return <Card project={p} />
 						})
 					}
 				</div>
@@ -116,6 +137,7 @@ const posts = (await getCollection('blog')).sort(
 	--spreadA: 90deg;
 	--spreadB: 270deg;
 }
+
 
 .main-gradient {
 	background: conic-gradient(from 0deg at 50% 20%,hsl(210,40%,96%) var(--spreadA),hsl(222,47%,80%),hsl(210,40%,96%) var(--spreadB));
