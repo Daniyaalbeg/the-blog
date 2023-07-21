@@ -9,6 +9,7 @@ import '@fontsource/sora';
 import Card from '../components/Card.astro';
 import { getCollection } from 'astro:content';
 import ThreeHero from '../components/ThreeHero.astro';
+import BackgroundImage from '../components/BackgroundImage.astro';
 
 export type Color = 'purple' | 'red' | 'green'
 
@@ -55,19 +56,19 @@ const posts = (await getCollection('blog')).sort(
 	</head>
 	<!-- bg-gradient-to-b from-slate-200 to-slate-300 dark:from-stone-500 dark:to-stone-600 -->
 	<body class="h-full bg-slate-100 dark:bg-slate-900 overflow-y-scroll overflow-x-hidden">
-		<div class="w-full px-8 sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20">
-			<HomeHeader client:only />
-		</div>
-		<main class="w-full space-y-16 pt-12">
-			<!-- <section class="w-[calc(100%-4rem)] sm:w-[calc(100%-10rem)] mb-8 p-8 sm:p-12 mx-auto bg-gradient-to-br from-slate-300 to-slate-100 shadow-2xl hover:shadow-[hsl(240,50%,60%)] hover:dark:shadow-[hsl(240,60%,30%)] transition-shadow duration-500 ease-in-out dark:to-blue-600/40 dark:from-blue-950 rounded-lg xl:rounded-2xl space-y-2 mt-12">
-				<h2 class="font-semibold text-xl sm:text-2xl leading-tight dark:text-slate-300 text-slate-700">Welcome to my space on the internet!</h2>
-				<h3 class="dark:text-slate-300 text-slate-600">I made this site to showcase my projects and gibber about things I want.</h3>
-				<p class="dark:text-slate-300 text-slate-600">I Hope you find some fun here!</p>
-			</section> -->
-			<ThreeHero client:load />
+		<main class="w-full">
+			<BackgroundImage />
+			<div class="w-full px-8 sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20 mb-12">
+				<HomeHeader client:only />
+			</div>
+			<!-- <ThreeHero client:load /> -->
+			<section class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12 my-12 text-center space-y-4">
+				<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0">Hi <span class="inline-block hover:animate-bounce">👋</span></h2>
+				<h3 class="max-w-sm sm:max-w-lg mx-auto text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Welcome to my digital home 🏡.</h3>
+			</section>
 			<section class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12">
 				<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0">Projects</h2>
-				<h3 class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">A list of my complete and incomplete projects.</h3>
+				<h3 class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Some finished ✅, some not so finished 🚧, some yet to start 🏁, but all trying to be awesome! 🚀</h3>
 				<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-8">
 					{
 						projects.map((p) => {
@@ -78,9 +79,9 @@ const posts = (await getCollection('blog')).sort(
 			</section>
 			<section id="main-gradient" class="relative w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12">
 				<!-- bg-[radial-gradient(400px_circle_at_center,hsl(222,47%,31%,0.5),hsl(222,47%,11%))] -->
-				<div class="main-gradient absolute z-[-2] h-[1000px] top-[-200px] right-0 left-0 sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0 transition-all" />
-				<div class=" pointer-events-none absolute z-[-1] h-[200px] top-[600px] right-0 left-0 bg-gradient-to-b from-transparent dark:to-[hsl(222,47%,11%)] to-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" />
-				<div class=" pointer-events-none absolute z-[-1] h-[100px] top-[0px] right-0 left-0 bg-gradient-to-b to-transparent dark:from-[hsl(222,47%,11%)] from-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" />
+				<!-- <div class="main-gradient absolute z-[-2] h-[1000px] top-[-200px] right-0 left-0 sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0 transition-all" /> -->
+				<!-- <div class=" pointer-events-none absolute z-[-1] h-[200px] top-[600px] right-0 left-0 bg-gradient-to-b from-transparent dark:to-[hsl(222,47%,11%)] to-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" /> -->
+				<!-- <div class=" pointer-events-none absolute z-[-1] h-[100px] top-[0px] right-0 left-0 bg-gradient-to-b to-transparent dark:from-[hsl(222,47%,11%)] from-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" /> -->
 				<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2">Scribbles</h2>
 				<h3 class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Mostly ramblings sprinkled with some juice.</h3>
 				<ul class="space-y-4">

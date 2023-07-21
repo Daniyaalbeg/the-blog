@@ -63,6 +63,9 @@ export const HomeHeader = () => {
 				<HeaderLink updateHoverElement={updateHoverElement} href="/about">
 					About
 				</HeaderLink>
+				<HeaderLink updateHoverElement={updateHoverElement} href="/snippets">
+					Snippets
+				</HeaderLink>
 				<HeaderLink
 					updateHoverElement={updateHoverElement}
 					href="https://twitter.com/daniyaalbeg"
