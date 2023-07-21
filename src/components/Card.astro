@@ -3,9 +3,9 @@ import type { Color, Project } from "../pages/index.astro";
 const { project } = Astro.props as Record<string, Project>;
 
 const colorVariantsCard: Record<Color, string> = {
-	'purple': 'from-[hsl(235,58%,60%)] to-[hsl(235,58%,45%)] dark:from-[hsl(225,58%,17%)] dark:to-[hsl(225,60%,30%)]',
-	'red': 'from-[hsl(1,58%,60%)] to-[hsl(1,58%,45%)] dark:from-[hsl(1,58%,17%)] dark:to-[hsl(1,60%,30%)]',
-	'green': 'from-[hsl(130,58%,50%)] to-[hsl(130,58%,35%)] dark:from-[hsl(120,58%,17%)] dark:to-[hsl(120,60%,30%)]'
+	'purple': 'from-[hsl(235,58%,60%)] to-[hsl(235,58%,45%)] dark:from-[hsl(225,60%,22%)] dark:to-[hsl(225,58%,17%)]',
+	'red': 'from-[hsl(1,58%,60%)] to-[hsl(1,58%,45%)] dark:from-[hsl(1,60%,30%)] dark:to-[hsl(1,58%,17%)]',
+	'green': 'from-[hsl(130,58%,50%)] to-[hsl(130,58%,35%)] dark:from-[hsl(120,60%,23%)] dark:to-[hsl(120,58%,17%)]'
 }
 
 const colorVariantsBorder: Record<Color, string> = {
