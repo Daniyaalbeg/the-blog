@@ -1,0 +1,12 @@
+---
+import '@fontsource/sora';
+import TailwindIndicator from '../components/TailwindIndicator.astro';
+import DarkMode from '../layouts/DarkMode.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="h-full max-w-7xl mx-auto" id="html">
+	<slot />
+	<TailwindIndicator />
+	<DarkMode />
+</html>

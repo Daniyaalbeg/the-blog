@@ -1,16 +1,18 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import { HomeHeader } from '../components/HomeHeader';
+import DarkMode from './DarkMode.astro';
+import BackgroundImage from '../components/BackgroundImage.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="h-full max-w-7xl mx-auto" id="html">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
@@ -28,12 +30,15 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		</style>
 	</head>
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				{heroImage && <img width={720} height={360} src={heroImage} alt="" />}
-				<h1 class="title">{title}</h1>
+	<body class="h-full bg-slate-100 dark:bg-slate-900 overflow-y-scroll overflow-x-hidden">
+		<div class="w-full px-8 sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20 mb-12">
+			<HomeHeader client:only />
+		</div>
+		<main class="w-full px-4 sm:px-0">
+			<BackgroundImage />
+			<article class="prose dark:prose-invert mx-auto">
+				{heroImage && <img width={720} height={360} src={heroImage} alt="" class="mb-16" />}
+				<!-- <h1 class="title">{title}</h1> -->
 				<FormattedDate date={pubDate} />
 				{
 					updatedDate && (
@@ -42,10 +47,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						</div>
 					)
 				}
-				<hr />
 				<slot />
 			</article>
 		</main>
 		<Footer />
+		<DarkMode />
 	</body>
 </html>
