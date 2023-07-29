@@ -64,7 +64,7 @@ const posts = (await getCollection('blog')).sort(
 			</div>
 			<!-- <ThreeHero client:load /> -->
 			<section class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12 my-12 text-center space-y-4">
-				<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0">Hi <span class="inline-block hover:animate-bounce">👋</span></h2>
+				<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0">Hi <span class="inline-block animate-rotate-b-f">👋</span></h2>
 				<h3 class="max-w-sm sm:max-w-lg mx-auto text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Welcome to my digital home 🏡.</h3>
 			</section>
 			<section class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12">
@@ -79,10 +79,28 @@ const posts = (await getCollection('blog')).sort(
 				</div>
 			</section>
 			<section id="main-gradient" class="relative w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12">
-				<!-- bg-[radial-gradient(400px_circle_at_center,hsl(222,47%,31%,0.5),hsl(222,47%,11%))] -->
-				<!-- <div class="main-gradient absolute z-[-2] h-[1000px] top-[-200px] right-0 left-0 sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0 transition-all" /> -->
-				<!-- <div class=" pointer-events-none absolute z-[-1] h-[200px] top-[600px] right-0 left-0 bg-gradient-to-b from-transparent dark:to-[hsl(222,47%,11%)] to-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" /> -->
-				<!-- <div class=" pointer-events-none absolute z-[-1] h-[100px] top-[0px] right-0 left-0 bg-gradient-to-b to-transparent dark:from-[hsl(222,47%,11%)] from-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" /> -->
+				<!-- <div class="main-gradient absolute z-[-2] h-[1000px] top-[-200px] right-0 left-0 sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0 transition-all" />
+				<div class=" pointer-events-none absolute z-[-1] h-[200px] top-[600px] right-0 left-0 bg-gradient-to-b from-transparent dark:to-[hsl(222,47%,11%)] to-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" />
+				<div class=" pointer-events-none absolute z-[-1] h-[100px] top-[0px] right-0 left-0 bg-gradient-to-b to-transparent dark:from-[hsl(222,47%,11%)] from-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" /> -->
+				<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2">Writings</h2>
+				<h3 class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Distilled arcane 🪄 knowledge.</h3>
+				<ul class="space-y-4">
+					{
+						posts.map((post) => (
+							<li class="group">
+								<a class="gap-1 flex items-center justify-between text-slate-600 dark:text-slate-300 group-hover:text-[hsl(240,50%,60%)] group-hover:dark:text-[hsl(240,80%,70%)]" href={`/blog/${post.slug}/`}>
+									<div>
+										<h4 class="font-semibold text-lg">{post.data.title}</h4>	
+										<p class="hidden sm:block text-sm text-slate-500 dark:text-slate-400">{post.data.description}</p>
+									</div>
+									<p class="text-sm text-slate-500 dark:text-slate-400">{`${new Date(post.data.pubDate).getMonth()}/${new Date(post.data.pubDate).getFullYear()}`}</p>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+			<!-- <section id="main-gradient" class="relative w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12">
 				<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2">Scribbles</h2>
 				<h3 class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Mostly ramblings sprinkled with some juice.</h3>
 				<ul class="space-y-4">
@@ -100,7 +118,7 @@ const posts = (await getCollection('blog')).sort(
 						))
 					}
 				</ul>
-			</section>
+			</section> -->
 			<section class="w-full h-[800px]"></section>
 		</main>
 		<!-- <Footer /> -->

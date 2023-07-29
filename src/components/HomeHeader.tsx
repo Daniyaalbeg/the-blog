@@ -36,6 +36,8 @@ export const HomeHeader = () => {
 		navContainerRef.current?.style.setProperty('--y', `${y}px`)
 	}, [])
 
+	const isDev = process.env.NODE_ENV === 'development'
+
 	return (
 		<header className="flex flex-row justify-between items-center py-4">
 			<div className="hidden group sm:flex flex-row gap-1 dark:text-slate-300 text-slate-700 justify-center items-center">
@@ -57,15 +59,22 @@ export const HomeHeader = () => {
 				<HeaderLink updateHoverElement={updateHoverElement} href="/">
 					Home
 				</HeaderLink>
-				<HeaderLink updateHoverElement={updateHoverElement} href="/blog">
+				{/* <HeaderLink updateHoverElement={updateHoverElement} href="/blog">
 					Blog
-				</HeaderLink>
-				<HeaderLink updateHoverElement={updateHoverElement} href="/about">
-					About
-				</HeaderLink>
-				<HeaderLink updateHoverElement={updateHoverElement} href="/snippets">
-					Snippets
-				</HeaderLink>
+				</HeaderLink> */}
+				{isDev ? (
+					<>
+						<HeaderLink updateHoverElement={updateHoverElement} href="/about">
+							About
+						</HeaderLink>
+						<HeaderLink
+							updateHoverElement={updateHoverElement}
+							href="/snippets"
+						>
+							Snippets
+						</HeaderLink>
+					</>
+				) : null}
 				<HeaderLink
 					updateHoverElement={updateHoverElement}
 					href="https://twitter.com/daniyaalbeg"
