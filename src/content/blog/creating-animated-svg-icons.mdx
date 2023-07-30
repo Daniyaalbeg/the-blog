@@ -82,15 +82,11 @@ We will be using the Moon svg provided by the great folks at [Radix UI](https://
 
 <br />
 
-### Why did I choose this? 🤔
-
-I chose this icon specifically because it has 3 stars. When I started looking around for an icon, I had already decided I wanted something with stars in it, stars that I could animate. In other words I had an idea of the animation that I wanted. This is not always the case. For example, the sun icon was just me scouring through icon sets until I found something that matched the moon icon's style and could be animated.
-
-<br />
-
 ### Requirements ✅
 
 Any icon can be animated, we could simple apply a scale and rotation on mounting or clicking. But for what I wanted I had some specific requirements.
+
+I chose this icon specifically because it has 3 stars. When I started looking around for an icon, I had already decided I wanted something with stars in it, stars that I could animate. In other words I had an idea of the animation that I wanted. This is not always the case. For example, the sun icon was just me scouring through icon sets until I found something that matched the moon icon's style and could be animated.
 
 - The icon needs clearly separated elements. In this case it would be the stars and the moon.
 - The svg itself would need independent paths for each of those elements so that we can easily animate them.
@@ -101,6 +97,8 @@ Any icon can be animated, we could simple apply a scale and rotation on mounting
 />
 
 A great place to learn more about SVG paths is [Nanda's](https://www.nan.fyi/svg-paths) guide on interactive SVG paths.
+
+<br />
 
 ### Anatomy of an SVG 📈
 
@@ -236,6 +234,8 @@ The solution? We separate our single path into 4 smaller paths. I imagine this c
 
 Awesome! We now have everything we need to begin animating!
 
+<br />
+
 ## Animating our Icon 🎬
 
 <Info
@@ -325,6 +325,8 @@ Ok this is great, but what I really want are some spring based animations for my
 
 We could achieve spring based animations with CSS using some custom cubic bezier timings. I would do this if I want to avoid Javascript or it is a one off. However for this article I want to focus on how I would do this with React. My go to animation library with React is Framer Motion. So how could be animate this icon in framer motion?
 
+<br />
+
 ### Actually animating our Icons 🎬 🤔
 
 This is not meant to be a framer motion tutorial. Check out the docs [here](https://www.framer.com/motion/).
@@ -406,7 +408,7 @@ We are getting there. A few things to notice so far:
 2. They animate linearly i.e. no springiness. (_I like my springiness_)
 3. The opacity fading in does not look that great.
 
-So let us fix these issues. Here is another snippet with some changes made:
+So let us fix these issues. Here is the same icon with the new changes:
 
 import { MoonAdvanced } from '../../components/blog/animated-svgs/MoonAdvanced'
 
@@ -466,6 +468,10 @@ Our icon is finally starting to look interesting. We have resolved all the issue
 2. A spring animation is added so that each element pops when it scales in size.
 3. The moon rotates by 30 degrees as it animates in to add a bit more flair.
 
+<br />
+
+### Going above beyond 🚀
+
 There is more we could do to enhance the animation.
 
 1. Currently we are using the default values for a spring animation, they are normally great, but sometimes we might want to really dial the type of animation in.
@@ -475,9 +481,17 @@ There is more we could do to enhance the animation.
 
 So far we have handled our animations to take place on mount. But we are not limited to that, we can have our animations play on all sorts of events such as: unmounting, hover, clicks. Armed with your new framer knowledge this is something you can explore. [Here](https://www.framer.com/motion/gestures/) is a good place to start.
 
-I would love to hear your thoughts on the article! [Drop me a message.](mailto:danyaalbeg@gmail.com)
+I hope you were able to learn something. Writing blog posts like these take a lot of time so I would really appreciate feedback and if you could [share this](http://twitter.com/share?text=Check%20out%20this%20article%20on%20animating%20SVG's!&url=http://daniyaalbeg.com/creating-animated-svg-icons&hashtags=daniyaal).
 
-Or come say hi on [twitter](https://twitter.com/daniyaalbeg)
+<br />
+
+### Contact me 🤙
+
+I would love to hear your thoughts on the article! [Drop me a message](mailto:danyaalbeg@gmail.com).
+
+Or come say hi on [twitter](https://twitter.com/daniyaalbeg).
+
+<br />
 
 ### Shoutouts 📣
 
