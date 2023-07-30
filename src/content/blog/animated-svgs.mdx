@@ -1,13 +1,18 @@
 ---
-title: 'Creating Animated SVGs'
-description: 'We will build a light and dark mode toggle, where the SVGs will animate in.'
+title: 'Creating Animated Icons with SVGs'
+description: 'We will build a dark mode toggle, the icons will animate. Using React, Tailwind, and Framer Motion'
 pubDate: 'Jul 22 2023'
-heroImage: '/placeholder-hero.jpg'
+heroImage: 'https://images.unsplash.com/photo-1545065695-64b67d551e68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80'
 ---
 
-We will be recreating the dark mode toggle I used for this site. Before we begin I thought I would give a quick shout out to [Josh Comeau](https://joshwcomeau.com) who inspired me to make my first post.
+import Info from '../../components/blog/info.astro'
 
-> Prerequisite: Working knowledge of React, Javascript
+We will be recreating the dark mode toggle I used for this site.
+
+<Info
+	heading="Prerequisite"
+	text="Working knowledge of React, Javascript, Helps to know about SVG's"
+/>
 
 import { ToggleTheme } from '../../components/mdx-examples/ToggleTheme'
 
@@ -90,7 +95,12 @@ Any icon can be animated, we could simple apply a scale and rotation on mounting
 - The icon needs clearly separated elements. In this case it would be the stars and the moon.
 - The svg itself would need independent paths for each of those elements so that we can easily animate them.
 
-> A path is an svg element that can be used to create any complex shape i.e. arcs, curves, stars. A great place to learn more about SVG paths is [Nanda's](https://www.nan.fyi/svg-paths) guide on interactive SVG paths. The gold standard of teaching blog posts.
+<Info
+	heading="Path Element"
+	text="A path is an svg element that can be used to create any complex shape i.e. arcs, curves, stars."
+/>
+
+A great place to learn more about SVG paths is [Nanda's](https://www.nan.fyi/svg-paths) guide on interactive SVG paths.
 
 ### Anatomy of an SVG 📈
 
@@ -129,8 +139,6 @@ If we want to make an SVG with this path it would be the following:
 	></path>
 </svg>
 ```
-
-> Considering we are using coordinates what are the limits of our graph? Well this is where the viewBox comes into play. viewBox="0 0 10 10" translates to: (starting x coordinate, starting y coordinate, height, width). starting x coordinates means instead of 0 start at 4.
 
 This renders to:
 
@@ -189,6 +197,11 @@ This renders to:
 	</g>
 </svg>
 
+<Info
+	heading="The Viewbox"
+	text='Considering we are using coordinates what are the limits of our graph? Well this is where the viewBox comes into play. viewBox="0 0 10 10" translates to: (starting x coordinate, starting y coordinate, height, width). starting x coordinates means instead of 0 start at 4.'
+/>
+
 Awesome! We now have a rudimentary understanding of SVG's with a single path. What about svg's with multiple paths? Well lets look at the moon svg from the beginning again:
 
 <svg
@@ -213,17 +226,21 @@ Awesome! We now have a rudimentary understanding of SVG's with a single path. Wh
 
 ````
 
-> I have simplified the SVG for reference.
+<Info
+	text="I have simplified the SVG for reference."
+/>
 
 You will notice that there is only one path for the 4 elements in our svg. Normally this is great, save space by having it all in one path. But for our needs this is not the best. If we want to animate each element separately we cannot.
 
-The solution? We separate our single path into 4 smaller paths. I imagine this can be done in a tool like Adobe Illustrator, but I wanted a really easy way to do this. After many attempts that ended in spectacular failure I found [this](https://github.com/Delapouite/svg-break-apart/tree/master). (Thanks to [Delapouite](https://github.com/Delapouite)). This handles the entire splitting process. So now we have a way to easily split up our svg into multiple paths. Using this I have built a small tool that allows you to easily split your svg's path. It is called [The Magical SVG Path Splitter Tool 8000](/tools/svg-path-splitter). Just paste your svg in, and it will spit it out a svg with separated paths.
+The solution? We separate our single path into 4 smaller paths. I imagine this can be done in a tool like Adobe Illustrator, but I wanted a really easy way to do this. After many attempts that ended in spectacular failure I found [this](https://github.com/Delapouite/svg-break-apart/tree/master). We are now able to easily split up our svg into multiple paths. Using this I have built a small tool that allows you to easily split your svg's path. It is called [The Magical SVG Path Splitter Tool 8000](/tools/svg-path-splitter). Just paste your svg in, and it will spit it out a svg with separated paths.
 
 Awesome! We now have everything we need to begin animating!
 
 ## Animating our Icon 🎬
 
-> We will be using React and Framer Motion to animate our icon.
+<Info
+	text="We will be using React and Framer Motion to animate our icon."
+/>
 
 Ok lets see what our moon icon looks like now:
 ```html
@@ -310,7 +327,7 @@ We could achieve spring based animations with CSS using some custom cubic bezier
 
 ### Actually animating our Icons 🎬 🤔
 
-> This is not meant to be a framer motion tutorial. Check out the docs [here](https://www.framer.com/motion/).
+This is not meant to be a framer motion tutorial. Check out the docs [here](https://www.framer.com/motion/).
 
 Framer motion makes it ridiculously easy to add animations to our apps. Here is a sample div with the necessary framer motion syntax.
 
@@ -461,5 +478,10 @@ So far we have handled our animations to take place on mount. But we are not lim
 I would love to hear your thoughts on the article! [Drop me a message.](mailto:danyaalbeg@gmail.com)
 
 Or come say hi on [twitter](https://twitter.com/daniyaalbeg)
+
+### Shoutouts 📣
+
+- Big shout out to [Josh Comeau](https://joshwcomeau.com) who inspired me to make a blog post.
+- Thanks to [Delapouite](https://github.com/Delapouite) for the awesome work on his SVG splitting code.
 
 <div class="text-center">🚀 [Head Home](/)</div>
