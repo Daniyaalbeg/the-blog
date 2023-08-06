@@ -4,7 +4,15 @@ import { useRef } from 'react'
 interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 	href: string
 	children: React.ReactNode
-	updateHoverElement: ({ x, y, w }: { x: number; y: number; w: number }) => void
+	updateHoverElement?: ({
+		x,
+		y,
+		w,
+	}: {
+		x: number
+		y: number
+		w: number
+	}) => void
 }
 
 export const HeaderLink = ({ href, children, updateHoverElement }: Props) => {
@@ -18,7 +26,7 @@ export const HeaderLink = ({ href, children, updateHoverElement }: Props) => {
 	const isActive = href === pathname || href === pathname.replace(/\/$/, '')
 
 	const onMouseEnter = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-		if (!ref.current) return
+		if (!ref.current || !updateHoverElement) return
 		const x = ref.current.getBoundingClientRect().left
 		const y = ref.current.getBoundingClientRect().top
 		const w = ref.current.getBoundingClientRect().width
@@ -30,7 +38,7 @@ export const HeaderLink = ({ href, children, updateHoverElement }: Props) => {
 			href={href}
 			ref={ref}
 			onMouseEnter={onMouseEnter}
-			className={`text-stone-700 dark:text-stone-300 inline-block ${
+			className={`text-stone-700 dark:text-stone-300 inline-block h-12 sm:h-auto ${
 				isActive ? 'font-bold underline' : ''
 			}`}
 		>

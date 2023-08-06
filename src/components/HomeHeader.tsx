@@ -3,6 +3,7 @@ import { ToggleTheme } from './ToggleTheme'
 import { SITE_TITLE } from '../consts'
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { MobileNav } from './MobileNav'
 
 const styles = {
 	'--x': 0,
@@ -38,61 +39,75 @@ export const HomeHeader = () => {
 
 	const isDev = process.env.NODE_ENV === 'development'
 
+	const isMobile = window.innerWidth < 640
+
 	return (
 		<header className="flex flex-row justify-between items-center py-4">
-			<div className="hidden group sm:flex flex-row gap-1 dark:text-slate-300 text-slate-700 justify-center items-center">
-				<h2 className="group-hover:text-[hsl(240,50%,50%)] group-hover:dark:text-[hsl(240,50%,60%)] text-xl transition-colors duration-200 ease-in-out pointer-events-none">
-					{SITE_TITLE.slice(0, 1)}
-				</h2>
-				<h2 className="group-hover:skew-x-12 transition-transform duration-200 ease-in-out pointer-events-none">
+			<div className="hidden group sm:flex sm:flex-row gap-1 dark:text-slate-300 text-slate-700 justify-center items-center">
+				<a href="/">
+					<h2 className="inline group-hover:text-[hsl(240,50%,50%)] group-hover:dark:text-[hsl(240,50%,60%)] text-xl transition-colors duration-200 ease-in-out pointer-events-none">
+						{SITE_TITLE.slice(0, 1)}
+					</h2>
+					<h2 className="inline group-hover:skew-x-12 transition-transform duration-200 ease-in-out pointer-events-none">
+						{SITE_TITLE.slice(1, SITE_TITLE.length)}
+					</h2>
+				</a>
+			</div>
+			<a className="sm:hidden" href="/">
+				<h2 className="text-xs text-stone-700 dark:text-stone-300 font-semibold">
+					<span className="group-hover:text-[hsl(240,50%,60%)] text-xl transition-colors duration-200 ease-in-out">
+						{SITE_TITLE.slice(0, 1)}
+					</span>
 					{SITE_TITLE.slice(1, SITE_TITLE.length)}
 				</h2>
-			</div>
-			<h2 className="sm:hidden text-xs text-stone-700 dark:text-stone-300 font-semibold">
-				<span className="group-hover:text-[hsl(240,50%,60%)] text-xl transition-colors duration-200 ease-in-out">
-					{SITE_TITLE.slice(0, 1)}
-				</span>
-				{SITE_TITLE.slice(1, SITE_TITLE.length)}
-			</h2>
-			<nav className="space-x-8 group" ref={navContainerRef} style={styles}>
-				<motion.div className="w-[var(--w)] h-8 left-[var(--x)] top-[var(--y)] pointer-events-none absolute bg-stone-600/10 dark:bg-stone-300/10 rounded-lg transition-all duration-500 group-hover:opacity-100 opacity-0" />
-				<HeaderLink updateHoverElement={updateHoverElement} href="/">
-					Home
-				</HeaderLink>
-				{/* <HeaderLink updateHoverElement={updateHoverElement} href="/blog">
+			</a>
+			{isMobile ? (
+				<div>
+					<MobileNav />
+				</div>
+			) : (
+				<nav className="space-x-8 group" ref={navContainerRef} style={styles}>
+					<motion.div className="w-[var(--w)] h-8 left-[var(--x)] top-[var(--y)] pointer-events-none absolute bg-stone-600/10 dark:bg-stone-300/10 rounded-lg transition-all duration-500 group-hover:opacity-100 opacity-0" />
+					<HeaderLink updateHoverElement={updateHoverElement} href="/">
+						Home
+					</HeaderLink>
+					{/* <HeaderLink updateHoverElement={updateHoverElement} href="/blog">
 					Blog
 				</HeaderLink> */}
-				{isDev ? (
-					<>
-						<HeaderLink updateHoverElement={updateHoverElement} href="/about">
-							About
-						</HeaderLink>
-						<HeaderLink
-							updateHoverElement={updateHoverElement}
-							href="/snippets"
-						>
-							Snippets
-						</HeaderLink>
-					</>
-				) : null}
-				<HeaderLink
-					updateHoverElement={updateHoverElement}
-					href="https://twitter.com/daniyaalbeg"
-					target="_blank"
-				>
-					Twitter
-				</HeaderLink>
-				<HeaderLink
-					updateHoverElement={updateHoverElement}
-					href="https://github.com/daniyaalbeg"
-					target="_blank"
-				>
-					GitHub
-				</HeaderLink>
-			</nav>
-			<div>
-				<ToggleTheme />
-			</div>
+					{isDev ? (
+						<>
+							<HeaderLink updateHoverElement={updateHoverElement} href="/about">
+								About
+							</HeaderLink>
+							<HeaderLink
+								updateHoverElement={updateHoverElement}
+								href="/snippets"
+							>
+								Snippets
+							</HeaderLink>
+						</>
+					) : null}
+					<HeaderLink
+						updateHoverElement={updateHoverElement}
+						href="https://twitter.com/daniyaalbeg"
+						target="_blank"
+					>
+						Twitter
+					</HeaderLink>
+					<HeaderLink
+						updateHoverElement={updateHoverElement}
+						href="https://github.com/daniyaalbeg"
+						target="_blank"
+					>
+						GitHub
+					</HeaderLink>
+				</nav>
+			)}
+			{!isMobile ? (
+				<div>
+					<ToggleTheme />
+				</div>
+			) : null}
 		</header>
 	)
 }

@@ -9,4 +9,7 @@ import react from '@astrojs/react'
 export default defineConfig({
 	site: 'https://daniyaalbeg.com',
 	integrations: [mdx(), sitemap(), tailwind(), react()],
+	experimental: {
+		viewTransitions: true,
+	},
 })

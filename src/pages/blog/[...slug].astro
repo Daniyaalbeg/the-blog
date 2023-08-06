@@ -2,6 +2,7 @@
 import { CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
+
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
@@ -16,6 +17,6 @@ const { Content } = await post.render();
 ---
 
 <BlogPost {...post.data}>
-	<h1>{post.data.title}</h1>
+	<h1 transition:name="blog-title">{post.data.title}</h1>
 	<Content />
 </BlogPost>
