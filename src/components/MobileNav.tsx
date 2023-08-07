@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { HeaderLink } from './HeaderLink'
 import { ToggleTheme } from './ToggleTheme'
@@ -14,9 +14,20 @@ export const MobileNav = () => {
 		setShowMobileNav(false)
 	}
 
-	useOutsideAlerter(ref, closeMobileNav)
+	// To close menu when clicks are registered outside specific div
+	// useOutsideAlerter(ref, closeMobileNav)
 
-	const isDev = process.env.NODE_ENV === 'development'
+	useEffect(() => {
+		const handleScrollListener = () => {
+			setShowMobileNav(false)
+		}
+
+		window.addEventListener('scroll', handleScrollListener)
+
+		return () => {
+			window.removeEventListener('scroll', handleScrollListener)
+		}
+	}, [])
 
 	return (
 		<>
@@ -50,30 +61,54 @@ export const MobileNav = () => {
 				</svg>
 			</button>
 			{showMobileNav && (
-				<nav
+				<motion.nav
+					style={{ transformOrigin: 'top right' }}
+					initial={{ opacity: 0, scale: 0.7 }}
+					animate={{ opacity: 1, scale: 1 }}
+					transition={{ type: 'spring', stiffness: 300, damping: 30 }}
 					ref={ref}
-					className="w-full fixed top-20 left-0 backdrop-blur-md h-64 z-10 flex flex-col justify-center items-center gap-3 px-8"
+					className="fixed top-20 left-8 right-8 h-64 z-10 flex flex-col justify-center items-center gap-3 px-8] dark:bg-blue-950/50 bg-white/30 backdrop-blur-lg rounded-xl"
 				>
-					<HeaderLink updateHoverElement={undefined} href="/">
-						Home
-					</HeaderLink>
+					<motion.div
+						initial={{ opacity: 0, scale: 0.7 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{ type: 'spring', delay: 0 }}
+					>
+						<HeaderLink updateHoverElement={undefined} href="/">
+							Home
+						</HeaderLink>
+					</motion.div>
 					{/* <HeaderLink href="/blog">
 					Blog
 				</HeaderLink> */}
-					{isDev ? (
-						<>
-							<HeaderLink href="/about">About</HeaderLink>
-							<HeaderLink href="/snippets">Snippets</HeaderLink>
-						</>
-					) : null}
-					<HeaderLink href="https://twitter.com/daniyaalbeg" target="_blank">
-						Twitter
-					</HeaderLink>
-					<HeaderLink href="https://github.com/daniyaalbeg" target="_blank">
-						GitHub
-					</HeaderLink>
-					<ToggleTheme />
-				</nav>
+					{/* <HeaderLink href="/about">About</HeaderLink>
+					<HeaderLink href="/snippets">Snippets</HeaderLink> */}
+					<motion.div
+						initial={{ opacity: 0, scale: 0.7 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{ type: 'spring', delay: 0.08 }}
+					>
+						<HeaderLink href="https://twitter.com/daniyaalbeg" target="_blank">
+							Twitter
+						</HeaderLink>
+					</motion.div>
+					<motion.div
+						initial={{ opacity: 0, scale: 0.7 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{ type: 'spring', delay: 0.16 }}
+					>
+						<HeaderLink href="https://github.com/daniyaalbeg" target="_blank">
+							GitHub
+						</HeaderLink>
+					</motion.div>
+					<motion.div
+						initial={{ opacity: 0, scale: 0.7 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{ type: 'spring', delay: 0.24 }}
+					>
+						<ToggleTheme />
+					</motion.div>
+				</motion.nav>
 			)}
 		</>
 	)
