@@ -1,80 +1,105 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
+import BaseHead from '../components/BaseHead.astro'
 // import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { HomeHeader } from '../components/HomeHeader';
-import TailwindIndicator from '../components/TailwindIndicator.astro';
-import DarkMode from '../layouts/DarkMode.astro';
-import '@fontsource/sora';
-import Card from '../components/Card.astro';
-import { getCollection } from 'astro:content';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
+import { HomeHeader } from '../components/HomeHeader'
+import TailwindIndicator from '../components/TailwindIndicator.astro'
+import DarkMode from '../layouts/DarkMode.astro'
+import '@fontsource/sora'
+import Card from '../components/Card.astro'
+import { getCollection } from 'astro:content'
 // import ThreeHero from '../components/ThreeHero.astro';
-import BackgroundImage from '../components/BackgroundImage.astro';
-import { ViewTransitions } from 'astro:transitions';
-
-
+import BackgroundImage from '../components/BackgroundImage.astro'
+import { ViewTransitions } from 'astro:transitions'
 
 export type Color = 'purple' | 'red' | 'green'
 
 export type Project = {
-	name: string,
-	url: string,
-	description: string,
-	tools: string,
+	name: string
+	url: string
+	description: string
+	tools: string
 	color: Color
 }
 
 const projects: Project[] = [
 	{
-		name: "Prompt Builder",
-		url: "https://github.com/Daniyaalbeg/prompt-builder",
-		description: "An open source tool that allows you to manage and generate prompts for image generation.",
-		tools: "NextJS, Tailwind, Drizzle, Lucia, Shadcn, Planetscale",
-		color: 'purple'
+		name: 'Prompt Builder',
+		url: 'https://github.com/Daniyaalbeg/prompt-builder',
+		description:
+			'An open source tool that allows you to manage and generate prompts for image generation.',
+		tools: 'NextJS, Tailwind, Drizzle, Lucia, Shadcn, Planetscale',
+		color: 'purple',
 	},
 	{
-		name: "Ministry of Change",
-		url: "https://ministryofchange.org",
-		description: "A web portal for a non-profit organization. React front-end with an express backend.",
-		tools: "React, Express, MongoDB, TailwindCSS, Node",
-		color: 'green'
+		name: 'Ministry of Change',
+		url: 'https://ministryofchange.org',
+		description:
+			'A web portal for a non-profit organization. React front-end with an express backend.',
+		tools: 'React, Express, MongoDB, TailwindCSS, Node',
+		color: 'green',
 	},
 	{
-		name: "Dwordle",
-		url: "https://github.com/Daniyaalbeg/dwordle",
-		description: "A wordle clone for the cli.",
-		tools: "Node, Figlet, Chalk",
-		color: 'red'
-	}
+		name: 'Dwordle',
+		url: 'https://github.com/Daniyaalbeg/dwordle',
+		description: 'A wordle clone for the cli.',
+		tools: 'Node, Figlet, Chalk',
+		color: 'red',
+	},
 ]
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+)
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="h-full max-w-7xl mx-auto" id="html">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<ViewTransitions fallback="swap" />
 	</head>
 	<!-- bg-gradient-to-b from-slate-200 to-slate-300 dark:from-stone-500 dark:to-stone-600 -->
-	<body class="h-full bg-slate-100 dark:bg-slate-900 overflow-y-scroll overflow-x-hidden">
+	<body
+		class="h-full bg-slate-100 dark:bg-slate-900 overflow-y-scroll overflow-x-hidden"
+	>
 		<main class="w-full">
-			<BackgroundImage />
-			<div class="w-full px-8 sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20 mb-12">
-				<HomeHeader client:only />
+			<!-- <BackgroundImage /> -->
+			<div
+				class="w-full px-8 sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20 mb-12"
+			>
+				<HomeHeader client:only="react" />
 			</div>
 			<!-- <ThreeHero client:load /> -->
 			<div class="space-y-12 sm:space-y-2">
-				<section class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12 my-12 text-center space-y-4">
-					<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0">Hi <span class="inline-block animate-rotate-b-f">👋</span></h2>
-					<h3 class="max-w-sm sm:max-w-lg mx-auto text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Welcome to my digital home 🏡.</h3>
+				<section
+					class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12 my-12 text-center space-y-4"
+				>
+					<h2
+						class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0"
+					>
+						Hi <span class="inline-block animate-rotate-b-f">👋</span>
+					</h2>
+					<h3
+						class="max-w-sm sm:max-w-lg mx-auto text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8"
+					>
+						Welcome to my digital home 🏡.
+					</h3>
 				</section>
-				<section class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12">
-					<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0">Projects</h2>
-					<h3 class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Some finished ✅, some not so finished 🚧, some yet to start 🏁, but all trying to be awesome! 🚀</h3>
+				<section
+					class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12"
+				>
+					<h2
+						class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0"
+					>
+						Projects
+					</h2>
+					<h3
+						class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8"
+					>
+						Some finished ✅, some not so finished 🚧, some yet to start 🏁, but
+						all trying to be awesome! 🚀
+					</h3>
 					<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-8">
 						{
 							projects.map((p) => {
@@ -83,20 +108,41 @@ const posts = (await getCollection('blog')).sort(
 						}
 					</div>
 				</section>
-				<section id="main-gradient" class="relative w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12">
+				<section
+					id="main-gradient"
+					class="relative w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12"
+				>
 					<!-- <div class="main-gradient absolute z-[-2] h-[1000px] top-[-200px] right-0 left-0 sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0 transition-all" />
 					<div class=" pointer-events-none absolute z-[-1] h-[200px] top-[600px] right-0 left-0 bg-gradient-to-b from-transparent dark:to-[hsl(222,47%,11%)] to-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" />
 					<div class=" pointer-events-none absolute z-[-1] h-[100px] top-[0px] right-0 left-0 bg-gradient-to-b to-transparent dark:from-[hsl(222,47%,11%)] from-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" /> -->
-					<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2">Writings</h2>
-					<h3 class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Distilled arcane 🪄 knowledge.</h3>
+					<h2
+						class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2"
+					>
+						Writings
+					</h2>
+					<h3
+						class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8"
+					>
+						Distilled arcane 🪄 knowledge.
+					</h3>
 					<ul class="space-y-4">
 						{
 							posts.map((post) => (
 								<li class="group">
-									<a class="gap-2 sm:gap-1 flex flex-col sm:flex-row sm:items-center items-start justify-between text-slate-600 dark:text-slate-300 group-hover:text-[hsl(240,50%,60%)] group-hover:dark:text-[hsl(240,80%,70%)]" href={`/blog/${post.slug}/`}>
+									<a
+										class="gap-2 sm:gap-1 flex flex-col sm:flex-row sm:items-center items-start justify-between text-slate-600 dark:text-slate-300 group-hover:text-[hsl(240,50%,60%)] group-hover:dark:text-[hsl(240,80%,70%)]"
+										href={`/blog/${post.slug}/`}
+									>
 										<div class="space-y-2 sm:space-y-0">
-											<h1 class="font-semibold text-sm sm:text-lg" transition:name="blog-title">{post.data.title}</h1>	
-											<p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">{post.data.description}</p>
+											<h1
+												class="font-semibold text-sm sm:text-lg"
+												transition:name="blog-title"
+											>
+												{post.data.title}
+											</h1>
+											<p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+												{post.data.description}
+											</p>
 										</div>
 										<p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">{`${new Date(post.data.pubDate).getMonth()}/${new Date(post.data.pubDate).getFullYear()}`}</p>
 									</a>
@@ -130,48 +176,61 @@ const posts = (await getCollection('blog')).sort(
 		<!-- <Footer /> -->
 		<TailwindIndicator />
 		<DarkMode />
-		</body>
-	</html>
+	</body>
+</html>
 
 <style>
 	/* Not supported in firefox, buts it is my blog and i can do what I want... */
-@property --primary{
-  syntax: '<color>'; /* its type */
-  inherits: false;
-  initial-value: 10%; /* the initial value */
-}
+	@property --primary {
+		syntax: '<color>'; /* its type */
+		inherits: false;
+		initial-value: 10%; /* the initial value */
+	}
 
-@property --secondary{
-  syntax: '<color>'; /* its type */
-  inherits: false;
-  initial-value: 10%; /* the initial value */
-}
+	@property --secondary {
+		syntax: '<color>'; /* its type */
+		inherits: false;
+		initial-value: 10%; /* the initial value */
+	}
 
-@property --spreadA {
-  syntax: '<angle>'; /* its type */
-  inherits: false;
-  initial-value: 130deg; /* the initial value */
-}
+	@property --spreadA {
+		syntax: '<angle>'; /* its type */
+		inherits: false;
+		initial-value: 130deg; /* the initial value */
+	}
 
-@property --spreadB {
-  syntax: '<angle>'; /* its type */
-  inherits: false;
-  initial-value: 230deg; /* the initial value */
-}
+	@property --spreadB {
+		syntax: '<angle>'; /* its type */
+		inherits: false;
+		initial-value: 230deg; /* the initial value */
+	}
 
-#main-gradient:hover .main-gradient {
-	--spreadA: 90deg;
-	--spreadB: 270deg;
-}
+	#main-gradient:hover .main-gradient {
+		--spreadA: 90deg;
+		--spreadB: 270deg;
+	}
 
+	.main-gradient {
+		background: conic-gradient(
+			from 0deg at 50% 20%,
+			hsl(210, 40%, 96%) var(--spreadA),
+			hsl(222, 47%, 80%),
+			hsl(210, 40%, 96%) var(--spreadB)
+		);
+		transition:
+			--spreadA 1s ease-in-out,
+			--spreadB 1s ease-in-out;
+	}
 
-.main-gradient {
-	background: conic-gradient(from 0deg at 50% 20%,hsl(210,40%,96%) var(--spreadA),hsl(222,47%,80%),hsl(210,40%,96%) var(--spreadB));
-	transition: --spreadA 1s ease-in-out, --spreadB 1s ease-in-out;
-}
-
-html.dark .main-gradient {
-	background: conic-gradient(from 0deg at 50% 20%,hsl(222,47%,11%) var(--spreadA),hsl(222,47%,20%),hsl(222,47%,11%) var(--spreadB));
-	transition: --spreadA 1s ease-in-out, --spreadB 1s ease-in-out;
-}
+	html.dark .main-gradient {
+		background: conic-gradient(
+			from 0deg at 50% 20%,
+			hsl(222, 47%, 11%) var(--spreadA),
+			hsl(222, 47%, 20%),
+			hsl(222, 47%, 11%) var(--spreadB)
+		);
+		transition:
+			--spreadA 1s ease-in-out,
+			--spreadB 1s ease-in-out;
+	}
 </style>

@@ -1,16 +1,16 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
+import BaseHead from '../components/BaseHead.astro'
 // import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { HomeHeader } from '../components/HomeHeader';
-import TailwindIndicator from '../components/TailwindIndicator.astro';
-import DarkMode from '../layouts/DarkMode.astro';
-import '@fontsource/sora';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
+import { HomeHeader } from '../components/HomeHeader'
+import TailwindIndicator from '../components/TailwindIndicator.astro'
+import DarkMode from '../layouts/DarkMode.astro'
+import '@fontsource/sora'
 // import ThreeHero from '../components/ThreeHero.astro';
-import BackgroundImage from '../components/BackgroundImage.astro';
+import BackgroundImage from '../components/BackgroundImage.astro'
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="h-full max-w-7xl mx-auto" id="html">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
@@ -19,8 +19,10 @@ import BackgroundImage from '../components/BackgroundImage.astro';
 	<body class="h-full bg-slate-100 dark:bg-slate-900">
 		<main class="h-full w-full">
 			<BackgroundImage />
-			<div class="w-full px-8 sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20 mb-12">
-				<HomeHeader client:only />
+			<div
+				class="w-full px-8 sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20 mb-12"
+			>
+				<HomeHeader client:only="react" />
 			</div>
 			<!-- <ThreeHero client:load /> -->
 			<slot />
@@ -28,5 +30,5 @@ import BackgroundImage from '../components/BackgroundImage.astro';
 		<!-- <Footer /> -->
 		<TailwindIndicator />
 		<DarkMode />
-		</body>
-	</html>
+	</body>
+</html>
