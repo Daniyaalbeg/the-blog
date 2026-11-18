@@ -25,7 +25,7 @@ export const HeaderLink = ({ href, children, updateHoverElement }: Props) => {
   const pathname = window.location.pathname;
   const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 
-  const onMouseEnter = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const onMouseEnter = () => {
     if (!ref.current || !updateHoverElement) return;
     const x = ref.current.getBoundingClientRect().left;
     const y = ref.current.getBoundingClientRect().top;
@@ -38,7 +38,7 @@ export const HeaderLink = ({ href, children, updateHoverElement }: Props) => {
       href={href}
       ref={ref}
       onMouseEnter={onMouseEnter}
-      className={`text-stone-700 dark:text-stone-300 inline-block h-12 sm:h-auto ${
+      className={`inline-flex h-12 items-center whitespace-nowrap text-stone-700 dark:text-stone-300 sm:h-auto ${
         isActive ? "font-bold underline" : ""
       }`}
     >

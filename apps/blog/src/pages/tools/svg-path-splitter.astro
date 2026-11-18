@@ -4,6 +4,7 @@ import SiteBase from "../../layouts/SiteBase.astro";
 
 <SiteBase>  
   <script>
+    // @ts-nocheck
     // @info
     //   Polyfill for SVG 2 getPathData() and setPathData() methods. Based on:
     //   - SVGPathSeg polyfill by Philip Rogers (MIT License)
@@ -1147,6 +1148,7 @@ import SiteBase from "../../layouts/SiteBase.astro";
 </SiteBase>
 
 <script>
+  // @ts-nocheck
   const textarea = document.getElementById('inital-textarea') as HTMLInputElement
   const convertedTextarea = document.getElementById('converted-textarea') as HTMLInputElement
 

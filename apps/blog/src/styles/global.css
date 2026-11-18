@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@config "../../tailwind.config.cjs";
+
 /*
   This CSS reset is based on Josh Comeau's Reset CSS that I really like.
  */

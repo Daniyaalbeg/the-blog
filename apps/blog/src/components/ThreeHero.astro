@@ -6,7 +6,6 @@
 <script>
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'lil-gui'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import waterVertexShader from './shaders/vertex.glsl'
 // import waterFragmentShader from './shaders/fragment.glsl'
@@ -20,7 +19,10 @@ THREE.ColorManagement.enabled = false
 // const gui = new dat.GUI({ width: 340 })
 
 // Canvas
-const canvas = document.querySelector('canvas.webgl')
+const canvas = document.querySelector<HTMLCanvasElement>('canvas.webgl')
+if (!canvas) {
+	throw new Error('Missing canvas.webgl element')
+}
 // const html = document.querySelector('html')
 
 // const isDark = html?.classList.contains('dark')

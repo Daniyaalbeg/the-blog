@@ -15,7 +15,7 @@ export const MobileNav = () => {
   };
 
   // To close menu when clicks are registered outside specific div
-  // useOutsideAlerter(ref, closeMobileNav)
+  useOutsideAlerter(ref, closeMobileNav);
 
   useEffect(() => {
     const handleScrollListener = () => {
@@ -124,7 +124,6 @@ function useOutsideAlerter(
      * Alert if clicked on outside of element
      */
     function handleClickOutside(event: MouseEvent) {
-      console.log(event);
       if (ref.current && !ref.current.contains(event.target as Node)) {
         cb();
       }
@@ -135,5 +134,5 @@ function useOutsideAlerter(
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [cb, ref]);
 }
