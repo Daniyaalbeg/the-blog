@@ -1,0 +1,46 @@
+---
+import BaseHead from '../components/BaseHead.astro'
+import Footer from '../components/Footer.astro'
+import Nav from '../components/Nav.astro'
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts'
+
+type Props = {
+	title?: string
+	description?: string
+	image?: string
+	/** Show the top nav bar. The homepage replaces it with the intro. */
+	nav?: boolean
+	/** Content column width. Tools need more room than prose. */
+	width?: 'prose' | 'wide'
+}
+
+const {
+	title = SITE_TITLE,
+	description = SITE_DESCRIPTION,
+	image,
+	nav = true,
+	width = 'prose',
+} = Astro.props
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+	<head>
+		<BaseHead title={title} description={description} image={image} />
+		<slot name="head" />
+	</head>
+	<body class="min-h-dvh">
+		<div
+			class:list={[
+				'mx-auto px-4 pt-12 pb-20 sm:pt-24 sm:pb-28',
+				width === 'prose' ? 'max-w-[740px]' : 'max-w-[1032px]',
+			]}
+		>
+			{nav && <Nav />}
+			<main>
+				<slot />
+			</main>
+			<Footer />
+		</div>
+	</body>
+</html>

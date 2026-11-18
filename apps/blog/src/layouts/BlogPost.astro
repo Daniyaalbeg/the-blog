@@ -1,74 +1,79 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import BaseHead from '../components/BaseHead.astro'
-import Footer from '../components/Footer.astro'
-import FormattedDate from '../components/FormattedDate.astro'
-import { HomeHeader } from '../components/HomeHeader'
-import DarkMode from './DarkMode.astro'
+import { formatDate } from '../lib/content'
+import Site from './Site.astro'
 
-type Props = CollectionEntry<'blog'>['data']
+type Neighbour = Pick<CollectionEntry<'blog'>, 'id'> & { title: string }
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props
+type Props = {
+	post: CollectionEntry<'blog'>['data']
+	minutes: number
+	previous?: Neighbour
+	next?: Neighbour
+}
+
+const { post, minutes, previous, next } = Astro.props
+const { title, description, pubDate, updatedDate, heroImage } = post
 ---
 
-<html lang="en" class="h-full max-w-7xl mx-auto" id="html">
-	<head>
-		<BaseHead title={title} description={description} image={heroImage} />
-		<style>
-			.title {
-				font-size: 2em;
-				margin: 0.25em 0 0;
-			}
-			hr {
-				border-top: 1px solid #ddd;
-				margin: 1rem 0;
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism-dark.min.css"
-		/>
-	</head>
-
-	<body
-		class="h-full bg-slate-100 dark:bg-slate-900 overflow-y-scroll overflow-x-hidden"
-	>
-		<div class="w-full sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20 mb-12">
-			<HomeHeader client:only="react" />
-		</div>
-		<main class="w-full px-4 sm:px-0">
-			<!-- <BackgroundImage /> -->
-			<article class="prose prose-slate dark:prose-invert mx-auto">
-				{
-					heroImage && (
-						<img
-							width={720}
-							height={360}
-							src={heroImage}
-							onload="
-				this.style.opacity = 1
-				"
-							alt=""
-							class="mb-16 opacity-0 transition-opacity duration-200 rounded-lg shadow-sm h-[360px]"
-						/>
-					)
-				}
-				<!-- <h1 class="title">{title}</h1> -->
-				<FormattedDate date={pubDate} />
+<Site title={title} description={description} image={heroImage}>
+	<article>
+		<header class="flex flex-col gap-4">
+			<a href="/blog/" class="self-start text-sm leading-[22px] text-faint transition-colors hover:text-ink">
+				← All writing
+			</a>
+			<h1 class="font-serif text-[36px] leading-[44px] tracking-[-0.02em] text-balance text-ink sm:text-[44px] sm:leading-[52px]">
+				{title}
+			</h1>
+			<p class="text-lg leading-7 text-pretty text-muted">{description}</p>
+			<p class="flex flex-wrap gap-x-3 pt-2 text-sm leading-[22px] text-faint">
+				<time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+				<span aria-hidden="true">·</span>
+				<span>{minutes} min read</span>
 				{
 					updatedDate && (
-						<div class="last-updated-on">
-							Last updated on <FormattedDate date={updatedDate} />
-						</div>
+						<>
+							<span aria-hidden="true">·</span>
+							<span>
+								Updated <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time>
+							</span>
+						</>
 					)
 				}
-				<slot />
-			</article>
-		</main>
-		<Footer />
-		<DarkMode />
-	</body>
-</html>
+			</p>
+		</header>
+
+		<div class="post prose prose-invert mt-14">
+			<slot />
+		</div>
+	</article>
+
+	{
+		(previous || next) && (
+			<nav aria-label="More writing" class="mt-20 flex flex-col gap-5 border-t border-line pt-10 sm:flex-row">
+				{previous ? (
+					<a
+						href={`/blog/${previous.id}/`}
+						class="flex flex-1 flex-col gap-1 rounded-2xl border border-line bg-card p-5 transition-colors hover:border-line-strong"
+					>
+						<span class="text-[13px] leading-5 text-faint">← Previous</span>
+						<span class="text-base leading-[26px] font-medium text-ink">{previous.title}</span>
+					</a>
+				) : (
+					<div class="hidden flex-1 sm:block" />
+				)}
+				{next ? (
+					<a
+						href={`/blog/${next.id}/`}
+						class="flex flex-1 flex-col items-end gap-1 rounded-2xl border border-line bg-card p-5 text-right transition-colors hover:border-line-strong"
+					>
+						<span class="text-[13px] leading-5 text-faint">Next →</span>
+						<span class="text-base leading-[26px] font-medium text-ink">{next.title}</span>
+					</a>
+				) : (
+					<div class="hidden flex-1 sm:block" />
+				)}
+			</nav>
+		)
+	}
+</Site>

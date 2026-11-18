@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+type Props = { posts: CollectionEntry<'blog'>[] }
+
+const { posts } = Astro.props
+---
+
+<ul class="-mx-4 flex flex-col gap-1">
+	{
+		posts.map((post) => (
+			<li>
+				<a
+					href={`/blog/${post.id}/`}
+					class="block rounded-xl px-4 py-3 transition-colors hover:bg-card"
+				>
+					<h3 class="text-base leading-[26px] font-medium text-ink">{post.data.title}</h3>
+					<p class="text-base leading-[26px] text-muted">{post.data.description}</p>
+				</a>
+			</li>
+		))
+	}
+</ul>

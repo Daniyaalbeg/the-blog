@@ -1,24 +1,28 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
-import '../styles/global.css';
+// Imported here so global styles reach every page that renders <BaseHead />.
+import '../styles/global.css'
 
 export interface Props {
-	title: string;
-	description: string;
-	image?: string;
+	title: string
+	description: string
+	image?: string
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
-const { title, description, image = '/images/og.jpeg' } = Astro.props;
+const { title, description, image = '/images/og.jpeg' } = Astro.props
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#0a0a0a" />
 <link rel="icon" type="image" href="/favicon.ico" />
+<link rel="alternate" type="application/rss+xml" title="Daniyaal Beg" href="/rss.xml" />
 <meta name="generator" content={Astro.generator} />
+
+<link rel="preload" href="/fonts/timeless-sans.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/timeless-serif.woff2" as="font" type="font/woff2" crossorigin />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

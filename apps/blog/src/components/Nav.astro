@@ -1,0 +1,34 @@
+---
+import { getShorts } from '../lib/content'
+
+const shorts = await getShorts()
+const path = Astro.url.pathname
+
+const links = [
+	{ href: '/#projects', label: 'Projects', active: false },
+	{ href: '/blog/', label: 'Writing', active: path.startsWith('/blog') },
+	...(shorts.length > 0
+		? [{ href: '/shorts/', label: 'Shorts', active: path.startsWith('/shorts') }]
+		: []),
+]
+---
+
+<header class="mb-14 flex items-baseline justify-between gap-6">
+	<a href="/" class="font-serif text-xl leading-7 text-ink">daniyaalbeg</a>
+	<nav class="flex gap-6 text-sm leading-[22px]">
+		{
+			links.map((link) => (
+				<a
+					href={link.href}
+					class:list={[
+						'transition-colors hover:text-ink',
+						link.active ? 'text-ink' : 'text-faint',
+					]}
+					aria-current={link.active ? 'page' : undefined}
+				>
+					{link.label}
+				</a>
+			))
+		}
+	</nav>
+</header>

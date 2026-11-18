@@ -1,0 +1,41 @@
+---
+import { render, type CollectionEntry } from 'astro:content'
+import { formatDate } from '../lib/content'
+
+type Props = { shorts: CollectionEntry<'shorts'>[] }
+
+const { shorts } = Astro.props
+const rendered = await Promise.all(
+	shorts.map(async (short) => ({ short, Content: (await render(short)).Content }))
+)
+---
+
+<ol class="border-b border-line">
+	{
+		rendered.map(({ short, Content }) => (
+			<li id={short.id} class="flex flex-col gap-1 border-t border-line py-4 sm:flex-row sm:gap-6">
+				<time
+					datetime={short.data.date.toISOString()}
+					class="w-[72px] shrink-0 text-sm leading-[26px] text-faint"
+				>
+					{formatDate(short.data.date, 'short')}
+				</time>
+				<div class="short-body flex-1 text-base leading-[26px] text-pretty text-body">
+					<Content />
+				</div>
+			</li>
+		))
+	}
+</ol>
+
+<style>
+	.short-body :global(p + p) {
+		margin-top: 0.75em;
+	}
+	.short-body :global(a) {
+		color: var(--color-ink);
+		text-decoration: underline;
+		text-decoration-color: var(--color-line-strong);
+		text-underline-offset: 3px;
+	}
+</style>

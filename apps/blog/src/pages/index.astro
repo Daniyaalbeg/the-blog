@@ -1,234 +1,63 @@
 ---
-import BaseHead from '../components/BaseHead.astro'
-// import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
-import { HomeHeader } from '../components/HomeHeader'
-import TailwindIndicator from '../components/TailwindIndicator.astro'
-import DarkMode from '../layouts/DarkMode.astro'
-import Card from '../components/Card.astro'
-import { getCollection } from 'astro:content'
-// import ThreeHero from '../components/ThreeHero.astro';
-import { ClientRouter } from 'astro:transitions'
+import PostList from '../components/PostList.astro'
+import ProjectCard from '../components/ProjectCard.astro'
+import ShortList from '../components/ShortList.astro'
+import { projects } from '../data/projects'
+import Site from '../layouts/Site.astro'
+import { getPosts, getShorts } from '../lib/content'
 
-export type Color = 'purple' | 'red' | 'green'
-
-export type Project = {
-	name: string
-	url: string
-	description: string
-	tools: string
-	color: Color
-}
-
-const projects: Project[] = [
-	{
-		name: 'Prompt Builder',
-		url: 'https://github.com/Daniyaalbeg/prompt-builder',
-		description:
-			'An open source tool that allows you to manage and generate prompts for image generation.',
-		tools: 'NextJS, Tailwind, Drizzle, Lucia, Shadcn, Planetscale',
-		color: 'purple',
-	},
-	{
-		name: 'Ministry of Change',
-		url: 'https://ministryofchange.org',
-		description:
-			'A web portal for a non-profit organization. React front-end with an express backend.',
-		tools: 'React, Express, MongoDB, TailwindCSS, Node',
-		color: 'green',
-	},
-	{
-		name: 'Dwordle',
-		url: 'https://github.com/Daniyaalbeg/dwordle',
-		description: 'A wordle clone for the cli.',
-		tools: 'Node, Figlet, Chalk',
-		color: 'red',
-	},
-]
-
-const posts = (await getCollection('blog')).sort(
-	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-)
+const posts = await getPosts()
+const shorts = await getShorts()
 ---
 
-<!doctype html>
-<html lang="en" class="h-full max-w-7xl mx-auto" id="html">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<ClientRouter fallback="swap" />
-	</head>
-	<!-- bg-gradient-to-b from-slate-200 to-slate-300 dark:from-stone-500 dark:to-stone-600 -->
-	<body
-		class="h-full bg-slate-100 dark:bg-slate-900 overflow-y-scroll overflow-x-hidden"
-	>
-		<main class="w-full">
-			<!-- <BackgroundImage /> -->
-			<div
-				class="w-full px-8 sm:p-0 sm:max-w-[calc(100%-10rem)] mx-auto h-20 mb-12"
-			>
-				<HomeHeader client:only="react" />
-			</div>
-			<!-- <ThreeHero client:load /> -->
-			<div class="space-y-12 sm:space-y-2">
-				<section
-					class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12 my-12 text-center space-y-4"
+<Site nav={false}>
+	<section class="max-w-[548px]">
+		<h1 class="font-serif text-2xl leading-9 tracking-[-0.16px] text-ink">daniyaalbeg</h1>
+		<div class="flex flex-col gap-6 text-base leading-[26px] text-pretty text-muted">
+			<p>
+				I'm a product-minded developer in London building focused digital experiences for the web.
+			</p>
+			<p>
+				Most of my work sits between interface design and engineering: prototyping interactions,
+				shaping systems, and refining the details that make software feel good.
+			</p>
+			<p>
+				Elsewhere, I experiment with small tools and write about animation, interfaces, and the web.
+			</p>
+		</div>
+	</section>
+
+	<section id="projects" class="mt-[72px] scroll-mt-12">
+		<h2 class="font-serif text-2xl leading-9 tracking-[-0.16px] text-ink">Projects</h2>
+		<div class="mt-6 grid grid-cols-1 gap-x-5 gap-y-20 pt-14 sm:grid-cols-2">
+			{projects.map((project) => <ProjectCard project={project} />)}
+		</div>
+	</section>
+
+	{
+		posts.length > 0 && (
+			<section id="writing" class="mt-[72px]">
+				<h2 class="mb-6 font-serif text-2xl leading-9 tracking-[-0.16px] text-ink">Writing</h2>
+				<PostList posts={posts} />
+			</section>
+		)
+	}
+
+	{
+		shorts.length > 0 && (
+			<section id="shorts" class="mt-[72px] flex flex-col gap-6">
+				<div class="flex items-baseline justify-between">
+					<h2 class="font-serif text-2xl leading-9 tracking-[-0.16px] text-ink">Shorts</h2>
+					<p class="text-sm leading-[22px] text-faint">Quick thoughts</p>
+				</div>
+				<ShortList shorts={shorts.slice(0, 3)} />
+				<a
+					href="/shorts/"
+					class="self-start text-sm leading-[22px] font-medium text-muted transition-colors hover:text-ink"
 				>
-					<h2
-						class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0"
-					>
-						Hi <span class="inline-block animate-rotate-b-f">👋</span>
-					</h2>
-					<h3
-						class="max-w-sm sm:max-w-lg mx-auto text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8"
-					>
-						Welcome to my digital home 🏡.
-					</h3>
-				</section>
-				<section
-					class="w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12"
-				>
-					<h2
-						class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2 mt-8 sm:mt-0"
-					>
-						Projects
-					</h2>
-					<h3
-						class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8"
-					>
-						Some finished ✅, some not so finished 🚧, some yet to start 🏁, but
-						all trying to be awesome! 🚀
-					</h3>
-					<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-8">
-						{
-							projects.map((p) => {
-								return <Card project={p} />
-							})
-						}
-					</div>
-				</section>
-				<section
-					id="main-gradient"
-					class="relative w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12"
-				>
-					<!-- <div class="main-gradient absolute z-[-2] h-[1000px] top-[-200px] right-0 left-0 sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0 transition-all" />
-					<div class=" pointer-events-none absolute z-[-1] h-[200px] top-[600px] right-0 left-0 bg-gradient-to-b from-transparent dark:to-[hsl(222,47%,11%)] to-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" />
-					<div class=" pointer-events-none absolute z-[-1] h-[100px] top-[0px] right-0 left-0 bg-gradient-to-b to-transparent dark:from-[hsl(222,47%,11%)] from-[hsl(210,40%,96%)] sm:right-[calc(-10rem)] sm:left-[calc(-10rem)] bottom-0" /> -->
-					<h2
-						class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2"
-					>
-						Writings
-					</h2>
-					<h3
-						class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8"
-					>
-						Distilled arcane 🪄 knowledge.
-					</h3>
-					<ul class="space-y-4">
-						{
-							posts.map((post) => (
-								<li class="group">
-									<a
-										class="gap-2 sm:gap-1 flex flex-col sm:flex-row sm:items-center items-start justify-between text-slate-600 dark:text-slate-300 group-hover:text-[hsl(240,50%,60%)] group-hover:dark:text-[hsl(240,80%,70%)]"
-										href={`/blog/${post.id}/`}
-									>
-										<div class="space-y-2 sm:space-y-0">
-											<h1
-												class="font-semibold text-sm sm:text-lg"
-												transition:name="blog-title"
-											>
-												{post.data.title}
-											</h1>
-											<p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-												{post.data.description}
-											</p>
-										</div>
-										<p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">{`${new Date(post.data.pubDate).getMonth()}/${new Date(post.data.pubDate).getFullYear()}`}</p>
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				</section>
-			</div>
-			<!-- <section id="main-gradient" class="relative w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto p-4 sm:p-12">
-				<h2 class="text-lg sm:text-2xl text-slate-700 dark:text-slate-200 tracking-tight font-bold mb-2">Scribbles</h2>
-				<h3 class="text-sm sm:text-lg text-slate-600 dark:text-slate-400 mb-8">Mostly ramblings sprinkled with some juice.</h3>
-				<ul class="space-y-4">
-					{
-						posts.map((post) => (
-							<li class="group">
-							<a class="gap-1 flex items-center justify-between text-slate-600 dark:text-slate-300 group-hover:text-[hsl(240,50%,60%)] group-hover:dark:text-[hsl(240,80%,70%)]" href={`/blog/${post.id}/`}>
-									<div>
-										<h4 class="font-semibold text-lg">{post.data.title}</h4>	
-										<p class="hidden sm:block text-sm text-slate-500 dark:text-slate-400">{post.data.description}</p>
-									</div>
-									<p class="text-sm text-slate-500 dark:text-slate-400">{`${new Date(post.data.pubDate).getMonth()}/${new Date(post.data.pubDate).getFullYear()}`}</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section> -->
-			<section class="w-full h-[300px]"></section>
-		</main>
-		<!-- <Footer /> -->
-		<TailwindIndicator />
-		<DarkMode />
-	</body>
-</html>
-
-<style>
-	/* Not supported in firefox, buts it is my blog and i can do what I want... */
-	@property --primary {
-		syntax: '<color>'; /* its type */
-		inherits: false;
-		initial-value: 10%; /* the initial value */
+					All shorts →
+				</a>
+			</section>
+		)
 	}
-
-	@property --secondary {
-		syntax: '<color>'; /* its type */
-		inherits: false;
-		initial-value: 10%; /* the initial value */
-	}
-
-	@property --spreadA {
-		syntax: '<angle>'; /* its type */
-		inherits: false;
-		initial-value: 130deg; /* the initial value */
-	}
-
-	@property --spreadB {
-		syntax: '<angle>'; /* its type */
-		inherits: false;
-		initial-value: 230deg; /* the initial value */
-	}
-
-	#main-gradient:hover .main-gradient {
-		--spreadA: 90deg;
-		--spreadB: 270deg;
-	}
-
-	.main-gradient {
-		background: conic-gradient(
-			from 0deg at 50% 20%,
-			hsl(210, 40%, 96%) var(--spreadA),
-			hsl(222, 47%, 80%),
-			hsl(210, 40%, 96%) var(--spreadB)
-		);
-		transition:
-			--spreadA 1s ease-in-out,
-			--spreadB 1s ease-in-out;
-	}
-
-	html.dark .main-gradient {
-		background: conic-gradient(
-			from 0deg at 50% 20%,
-			hsl(222, 47%, 11%) var(--spreadA),
-			hsl(222, 47%, 20%),
-			hsl(222, 47%, 11%) var(--spreadB)
-		);
-		transition:
-			--spreadA 1s ease-in-out,
-			--spreadB 1s ease-in-out;
-	}
-</style>
+</Site>

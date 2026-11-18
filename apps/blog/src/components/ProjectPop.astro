@@ -1,0 +1,71 @@
+---
+import type { ProjectPop } from '../data/projects'
+
+type Props = { pop: ProjectPop; name: string }
+
+const { pop, name } = Astro.props
+---
+
+{
+	pop.kind === 'icon' && (
+		<img
+			src={pop.src}
+			alt={`${name} icon`}
+			width="80"
+			height="80"
+			loading="lazy"
+			decoding="async"
+			class="pop absolute -top-10 left-5 size-20 rounded-[20px]"
+		/>
+	)
+}
+
+{
+	pop.kind === 'orb' && (
+		<svg
+			viewBox="0 0 100 100"
+			width="100"
+			height="100"
+			aria-hidden="true"
+			class="pop absolute -top-12 left-4 size-[100px]"
+		>
+			<defs>
+				<radialGradient id="orb-base" cx="38%" cy="34%" r="72%">
+					<stop offset="0%" stop-color="#F8FFF8" />
+					<stop offset="36%" stop-color="#BDDDCC" />
+					<stop offset="72%" stop-color="#9AB1E7" />
+					<stop offset="100%" stop-color="#6F83C9" />
+				</radialGradient>
+				<radialGradient id="orb-pink" cx="62%" cy="18%" r="45%">
+					<stop offset="0%" stop-color="#FBCEFF" stop-opacity="0.9" />
+					<stop offset="100%" stop-color="#C1BCFF" stop-opacity="0" />
+				</radialGradient>
+				<radialGradient id="orb-green" cx="28%" cy="66%" r="46%">
+					<stop offset="0%" stop-color="#5DB292" stop-opacity="0.8" />
+					<stop offset="100%" stop-color="#7ED2B4" stop-opacity="0" />
+				</radialGradient>
+			</defs>
+			<circle cx="50" cy="50" r="40" fill="url(#orb-base)" />
+			<circle cx="50" cy="50" r="40" fill="url(#orb-pink)" />
+			<circle cx="50" cy="50" r="40" fill="url(#orb-green)" />
+			<circle cx="50" cy="50" r="39.5" fill="none" stroke="#FFFFFF80" />
+		</svg>
+	)
+}
+
+{
+	pop.kind === 'kangent' && (
+		<div
+			aria-hidden="true"
+			class="pop absolute -top-8 left-5 flex w-[140px] flex-col gap-1.5 rounded-[10px] bg-[#FAFAFA] p-2.5"
+		>
+			<div class="flex items-center gap-1.5">
+				<span class="size-2 shrink-0 rounded-sm bg-[#3FB27F]" />
+				<span class="text-[10px] leading-3 font-medium tracking-[0.08em] text-[#555] uppercase">
+					Agent · doing
+				</span>
+			</div>
+			<span class="text-xs leading-4 text-[#111]">Write sync tests</span>
+		</div>
+	)
+}

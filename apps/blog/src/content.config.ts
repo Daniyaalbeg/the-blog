@@ -13,4 +13,13 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+/** Quick thoughts: one short markdown file each. */
+const shorts = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/shorts" }),
+  schema: z.object({
+    date: z.coerce.date(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, shorts };

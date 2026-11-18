@@ -1,25 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
-import SiteShell from '../../layouts/HomeBase.astro';
+import PostList from '../../components/PostList.astro'
+import Site from '../../layouts/Site.astro'
+import { getPosts } from '../../lib/content'
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+const posts = await getPosts()
 ---
 
-<SiteShell>
-	<section>
-		<ul>
-			{
-				posts.map((post) => (
-					<li>
-						<FormattedDate date={post.data.pubDate} />
-						<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-					</li>
-				))
-			}
-		</ul>
-	</section>
-</SiteShell>
-		
+<Site title="Writing · Daniyaal Beg" description="Notes on animation, interfaces and the web.">
+	<h1 class="font-serif text-[36px] leading-[44px] tracking-[-0.02em] text-ink">Writing</h1>
+	<p class="mt-2 mb-10 text-lg leading-7 text-muted">Notes on animation, interfaces and the web.</p>
+	<PostList posts={posts} />
+</Site>

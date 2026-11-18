@@ -1,8 +1,8 @@
 ---
-import SiteBase from "../../layouts/SiteBase.astro";
+import Site from "../../layouts/Site.astro";
 ---
 
-<SiteBase>  
+<Site title="SVG Path Splitter · Daniyaal Beg" description="Break a single SVG path into its separate shapes." width="wide">  
   <script>
     // @ts-nocheck
     // @info
@@ -1121,31 +1121,27 @@ import SiteBase from "../../layouts/SiteBase.astro";
         // })()
       
   </script>
-  <div class="hidden">
-    <h2>Broken-apart SVG</h2>
-    <p>The foreground path has been automatically broken apart in several paths with random colors.</p>
-  </div>
-
-  <div class="h-full sm:h-4/5 flex flex-col items-center justify-center gap-8">
-    <div class="text-center dark:invert">
-      <h1 class="text-xl font-semibold tracking-tight">SVG Path Splitter</h1>
-      <h3 class="">Paste your SVG, and see the magic happen.</h3>
+  <div class="flex flex-col gap-10">
+    <div>
+      <a href="/tools/" class="text-sm leading-[22px] text-faint transition-colors hover:text-ink">← All tools</a>
+      <h1 class="mt-4 font-serif text-[36px] leading-[44px] tracking-[-0.02em] text-ink">SVG Path Splitter</h1>
+      <p class="mt-2 text-lg leading-7 text-muted">Paste an SVG with one compound path. Each shape comes back as its own path, ready to animate.</p>
     </div>
-    <div class="flex flex-col sm:flex-row sm:gap-4">
-      <div class="flex flex-col justify-center items-start gap-2">
-        <h3 class="text-lg text-gray-800 dark:text-gray-300">Boring SVG</h3>
-        <textarea id="inital-textarea" class="bg-white dark:bg-blue-950 dark:text-gray-100 text-gray-900 rounded-lg px-4 py-2 max-w-xs sm:max-w-md lg:max-w-none shadow-[shadow:var(--shadow-elevation-low)] dark:shadow-[shadow:var(--shadow-elevation-medium)]" placeholder="Paste SVG here..." name="message" rows="10" cols="60" />
-        <div id="iconSlug" class="w-full h-24 flex items-center justify-center rounded-lg"></div>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+      <div class="flex flex-col gap-3">
+        <label for="inital-textarea" class="text-sm leading-[22px] font-medium text-ink">Original SVG</label>
+        <textarea id="inital-textarea" class="min-h-60 w-full resize-y rounded-2xl border border-line bg-card px-4 py-3 font-mono text-[13px] leading-5 text-body placeholder:text-faint focus:border-faint focus:outline-none" placeholder="<svg>…</svg>" name="original" rows="10" spellcheck="false" />
+        <div id="iconSlug" class="flex h-28 w-full items-center justify-center rounded-2xl border border-line bg-card text-ink"></div>
       </div>
-      <div class="flex flex-col justify-center items-start gap-2">
-        <h3 class="text-lg text-gray-800 dark:text-gray-300">Magical SVG</h3>
-        <textarea id="converted-textarea" class="bg-white dark:bg-blue-950 dark:text-gray-100 text-gray-900 rounded-lg px-4 py-2 max-w-xs sm:max-w-md lg:max-w-none shadow-[shadow:var(--shadow-elevation-low)] dark:shadow-[shadow:var(--shadow-elevation-medium)]" placeholder="Converted SVG here..." name="message" rows="10" cols="60" />
-        <div id="convertedIconSlug" class="w-full h-24 flex items-center justify-center rounded-lg"></div>
+      <div class="flex flex-col gap-3">
+        <label for="converted-textarea" class="text-sm leading-[22px] font-medium text-ink">Split SVG</label>
+        <textarea id="converted-textarea" class="min-h-60 w-full resize-y rounded-2xl border border-line bg-card px-4 py-3 font-mono text-[13px] leading-5 text-body placeholder:text-faint focus:border-faint focus:outline-none" placeholder="The split SVG appears here" name="converted" rows="10" spellcheck="false" readonly />
+        <div id="convertedIconSlug" class="flex h-28 w-full items-center justify-center rounded-2xl border border-line bg-card"></div>
       </div>
     </div>
-    <button class="bg-purple-700 dark:bg-purple-800 p-0 rounded-full text-gray-50 transition-shadow duration-100 shadow-[0px_2px_2px_1px_hsl(0,0%,0%,0.2)] hover:shadow-[0px_3px_2px_1px_hsl(0,0%,0%,0.2)] active:shadow-[0px_0px_2px_1px_hsl(0,0%,0%,0.2)]"> <div class="grid w-24 h-24 items-center rounded-full bg-purple-500 dark:bg-purple-600 -translate-y-1 active:-translate-y-[1px] hover:-translate-y-[5px] shadow-inner transition-all duration-100 active:shadow-purple-800">Magic</div> </button>
+    <button id="split-button" class="self-start rounded-full bg-ink px-6 py-2.5 text-sm font-medium text-page transition-transform hover:scale-[1.02] active:scale-[0.98]">Split paths</button>
   </div>
-</SiteBase>
+</Site>
 
 <script>
   // @ts-nocheck
@@ -1175,7 +1171,7 @@ import SiteBase from "../../layouts/SiteBase.astro";
     values: number[] 
   }
 
-  const button = document.querySelector('button')
+  const button = document.getElementById('split-button')
   if (button && textarea) {
     button.onclick = (e: Event) => {
       // Assume the input has an svg and get that and append to the div with id iconSlug
@@ -1225,26 +1221,3 @@ import SiteBase from "../../layouts/SiteBase.astro";
   }
 </script>
 
-<style>
-  :root {
-    --shadow-color: 286deg 35% 36%;
-    --shadow-elevation-low:
-      0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.34),
-      0.4px 0.8px 1px -1.2px hsl(var(--shadow-color) / 0.34),
-      1px 2px 2.5px -2.5px hsl(var(--shadow-color) / 0.34);
-    --shadow-elevation-medium:
-      0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
-      0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
-      2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
-      5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
-    --shadow-elevation-high:
-      0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.34),
-      1.5px 2.9px 3.7px -0.4px hsl(var(--shadow-color) / 0.34),
-      2.7px 5.4px 6.8px -0.7px hsl(var(--shadow-color) / 0.34),
-      4.5px 8.9px 11.2px -1.1px hsl(var(--shadow-color) / 0.34),
-      7.1px 14.3px 18px -1.4px hsl(var(--shadow-color) / 0.34),
-      11.2px 22.3px 28.1px -1.8px hsl(var(--shadow-color) / 0.34),
-      17px 33.9px 42.7px -2.1px hsl(var(--shadow-color) / 0.34),
-      25px 50px 62.9px -2.5px hsl(var(--shadow-color) / 0.34);
-  }
-</style>

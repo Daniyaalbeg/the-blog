@@ -1,13 +1,25 @@
 ---
-const today = new Date();
+const links = [
+	{ href: 'https://github.com/daniyaalbeg', label: 'GitHub' },
+	{ href: 'https://x.com/daniyaalbeg', label: 'X' },
+	{ href: '/about/', label: 'About' },
+	{ href: '/rss.xml', label: 'RSS' },
+]
 ---
 
-<footer class="text-gray-900 dark:text-gray-100 text-xs">
-	&copy; {today.getFullYear()} Daniyaal Beg. All rights reserved.
+<footer
+	class="mt-20 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-line pt-8 text-sm leading-[22px] text-faint"
+>
+	<p>Daniyaal Beg, London</p>
+	<ul class="flex gap-5">
+		{
+			links.map((link) => (
+				<li>
+					<a href={link.href} class="transition-colors hover:text-ink">
+						{link.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
 </footer>
-<style>
-	footer {
-		padding: 25px;
-		text-align: center;
-	}
-</style>
