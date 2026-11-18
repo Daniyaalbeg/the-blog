@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 export const ToggleTheme = () => {
   const [theme, setTheme] = useState<string>("light");
@@ -9,7 +9,7 @@ export const ToggleTheme = () => {
     setTheme(newTheme);
   };
 
-  const variants = {
+  const variants: Variants = {
     grow: { scale: 1.05 },
     click: { scale: 0.95 },
     hidden: {
@@ -23,7 +23,7 @@ export const ToggleTheme = () => {
     },
   };
 
-  const backDivVariant = {
+  const backDivVariant: Variants = {
     hidden: {
       scale: 0.9,
       opacity: 0,
@@ -46,7 +46,7 @@ export const ToggleTheme = () => {
     },
   };
 
-  const starVariants = {
+  const starVariants: Variants = {
     hidden: {
       scale: 0.4,
       opacity: 0,
@@ -64,7 +64,7 @@ export const ToggleTheme = () => {
       },
     }),
   };
-  const moonVariants = {
+  const moonVariants: Variants = {
     hidden: {
       scale: 0.1,
       opacity: 0,
@@ -80,7 +80,7 @@ export const ToggleTheme = () => {
     },
   };
 
-  const lineVariants = {
+  const lineVariants: Variants = {
     hidden: {
       scale: 0.4,
       opacity: 0,
@@ -99,7 +99,7 @@ export const ToggleTheme = () => {
     }),
   };
 
-  const sunVariants = {
+  const sunVariants: Variants = {
     hidden: {
       scale: 0.1,
       opacity: 0,
