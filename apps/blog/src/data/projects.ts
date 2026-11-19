@@ -36,6 +36,12 @@ export const projects: Project[] = [
 		pop: { kind: 'icon', src: '/projects/daily-drawers.png' },
 	},
 	{
+		name: 'Blurrrd',
+		description: 'One painting a day. Name it before you uncover too much of it.',
+		url: 'https://blurrrd.daniyaalbeg.com',
+		pop: { kind: 'icon', src: '/projects/blurrrd.png' },
+	},
+	{
 		name: 'Lafz',
 		description: 'A trustworthy Urdu–English dictionary, rebuilt from Platts.',
 		pop: { kind: 'icon', src: '/projects/lafz.png' },

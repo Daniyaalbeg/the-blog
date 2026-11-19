@@ -35,7 +35,7 @@ const {
 			<!-- Wide pages widen only the content, so the header and footer stay put. -->
 			<main
 				class:list={
-					width === 'wide' && 'relative left-1/2 w-[min(1000px,100vw-48px)] -translate-x-1/2'
+					[width === 'wide' && 'relative left-1/2 w-[min(1000px,100vw-48px)] -translate-x-1/2']
 				}
 			>
 				<slot />
