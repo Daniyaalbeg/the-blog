@@ -10,7 +10,7 @@ type Props = {
 	image?: string
 	/** Show the top nav bar. The homepage replaces it with the intro. */
 	nav?: boolean
-	/** Content column width. Tools need more room than prose. */
+	/** Content width. Tools need more room than prose; the header and footer keep the prose width. */
 	width?: 'prose' | 'wide'
 }
 
@@ -30,14 +30,14 @@ const {
 		<slot name="head" />
 	</head>
 	<body class="min-h-dvh">
-		<div
-			class:list={[
-				'mx-auto px-4 pt-12 pb-20 sm:pt-24 sm:pb-28',
-				width === 'prose' ? 'max-w-[740px]' : 'max-w-[1032px]',
-			]}
-		>
+		<div class="mx-auto max-w-[740px] px-4 pt-12 pb-20 sm:pt-24 sm:pb-28">
 			{nav && <Nav />}
-			<main>
+			<!-- Wide pages widen only the content, so the header and footer stay put. -->
+			<main
+				class:list={
+					width === 'wide' && 'relative left-1/2 w-[min(1000px,100vw-48px)] -translate-x-1/2'
+				}
+			>
 				<slot />
 			</main>
 			<Footer />

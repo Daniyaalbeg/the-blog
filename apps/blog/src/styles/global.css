@@ -79,6 +79,8 @@
   html {
     color-scheme: dark;
     background: var(--color-page);
+    /* Reserve the scrollbar's space so short and long pages line up. */
+    scrollbar-gutter: stable;
   }
 
   body {
