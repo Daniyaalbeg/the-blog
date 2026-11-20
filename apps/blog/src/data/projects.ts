@@ -42,9 +42,9 @@ export const projects: Project[] = [
 		pop: { kind: 'icon', src: '/projects/blurrrd.png' },
 	},
 	{
-		name: 'Lafz',
+		name: 'Aam',
 		description: 'A trustworthy Urdu–English dictionary, rebuilt from Platts.',
-		pop: { kind: 'icon', src: '/projects/lafz.png' },
+		pop: { kind: 'icon', src: '/projects/aam.png' },
 	},
 	{
 		name: 'Rehbar 1',
